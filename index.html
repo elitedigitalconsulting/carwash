@@ -220,6 +220,10 @@ section.sent .wl-done{display:flex}section.sent .wl{display:none}
 #waitlist .wl label{color:#FFFFFF}
 #waitlist .wl .btn-primary{background:#FFFFFF;color:#0E1726}
 #waitlist .wl-done{background:#FFFFFF;color:#0E1726}
+.wl .fine{margin:0;font-size:14px;line-height:1.45}
+#signup .wl .fine{color:#3A4557}#signup .wl .fine a{color:#0B5E4D}
+#waitlist .wl .fine,#waitlist .wl .fine a{color:#FFFFFF}
+footer a{color:inherit}
 .form-fallback{margin:14px 0 0;font-size:15px;color:var(--ink-2)}
 footer{padding:36px 0 48px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
@@ -435,6 +439,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
           <label>Do you have an ABN? (optional)<select name="ABN"><option value="">Choose…</option><option>Yes</option><option>No</option><option>Not sure what that is</option></select></label>
           <label>How did you hear about us? (optional)<select name="Heard via"><option value="">Choose…</option><option>Letterbox flyer</option><option>Flyer at the shops</option><option>Google</option><option>Social media</option><option>A friend</option><option>Other</option></select></label>
           <label class="full">Anything else we should know? (optional)<textarea name="Notes" rows="3"></textarea></label>
+          <p class="fine full">By signing up, you agree to our <a href="terms.html">Terms</a>. We’ll only use your details to review your application and contact you. See our <a href="privacy.html">Privacy Policy</a>.</p>
           <p class="wl-err full" role="alert" hidden>Sorry, that didn’t go through. Please check your connection and try again.</p>
           <button class="btn btn-primary full" type="submit">Sign up</button>
         </form>
@@ -462,6 +467,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
           <label>What you’d want<select name="Service" required><option value="">Choose…</option><option>Exterior wash</option><option>Exterior and interior</option><option>Full detail</option><option>Not sure yet</option></select></label>
           <label>How often<select name="How often" required><option value="">Choose…</option><option>One-off</option><option>Monthly</option><option>Fortnightly</option><option>Weekly</option><option>Not sure yet</option></select></label>
           <label>How did you hear about us?<select name="Heard via"><option value="">Choose…</option><option>Letterbox flyer</option><option>Noticeboard flyer</option><option>Facebook</option><option>Friend or neighbour</option><option>Google</option><option>Other</option></select></label>
+          <p class="fine full">We’ll only use your details to tell you when we’re washing near you. See our <a href="privacy.html">Privacy Policy</a>.</p>
           <p class="wl-err full" role="alert" hidden>Sorry, that didn’t go through. Please check your connection and try again.</p>
           <button class="btn btn-primary full" type="submit">Join the waitlist</button>
         </form>
@@ -527,7 +533,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
 
 <footer>
   <div class="wrap">
-    <span>© 2026</span>
+    <span>© 2026 · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="mailto:hello@sparqle.com.au">hello@sparqle.com.au</a></span>
     <span>Sydney, Australia</span>
   </div>
 </footer>
