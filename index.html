@@ -192,10 +192,17 @@ section.sent .wl-done{display:flex}section.sent .wl{display:none}
 html:not(.newform) #signup-new{display:none!important}
 #signup-new{background:#0E1726;color:#FFFFFF}
 #signup-new .sub{color:inherit;opacity:.82}
-#signup-new .form-card{background:#0E7C66;border-color:transparent}
-#signup-new .wl label,#signup-new .chk legend,#signup-new .note{color:#FFFFFF}
-#signup-new .wl .btn-primary{background:#FFFFFF;color:#0E1726}
-#signup-new .wl-done{background:#FFFFFF;color:#0E1726}
+#signup-new .form-card{background:#FFFFFF;border-color:transparent}
+#signup-new .wl label,#signup-new .chk legend,#signup-new .note{color:#0E1726}
+#signup-new .wl input:not([type=checkbox]),#signup-new .wl select,#signup-new .wl textarea{background-color:#0E7C66;color:#FFFFFF;border-color:#0E7C66}
+#signup-new .wl ::placeholder{color:rgba(255,255,255,.75)}
+#signup-new .wl select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23FFFFFF' stroke-width='2.2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+#signup-new .wl select option{background:#FFFFFF;color:#0E1726}
+#signup-new .wl input:focus,#signup-new .wl select:focus,#signup-new .wl textarea:focus{outline:3px solid #0E1726;outline-offset:1px;border-color:#0E7C66}
+#signup-new .wl input[type=checkbox]{accent-color:#0E7C66}
+#signup-new .wl .parent{background:#E3F4EF}
+#signup-new .wl .btn-primary{background:#0E7C66;color:#FFFFFF}
+#signup-new .wl-done{background:#E3F4EF;color:#0E1726}
 .wl textarea{font:inherit;font-weight:400;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);resize:vertical}
 .wl .parent{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;background:rgba(255,255,255,.1);border-radius:14px;padding:16px}
 .wl .parent[hidden]{display:none}
