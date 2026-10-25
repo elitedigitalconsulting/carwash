@@ -177,8 +177,12 @@ details p{margin:0 0 16px;color:var(--ink-2);max-width:68ch}
 .wl input,.wl select{font:inherit;font-weight:400;min-height:48px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink)}
 .wl input:focus,.wl select:focus{outline:3px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
 .wl .full{grid-column:1/-1}
-.wl-done{display:none;background:var(--sky);border-radius:16px;padding:22px;font-weight:600}
-.joined .wl-done{display:block}.joined .wl{display:none}
+.wl-done{display:none;align-items:center;gap:16px;background:var(--sky);border-radius:16px;padding:24px}
+.wl-done b{display:block;font-size:22px;margin-bottom:4px}
+.wl-done svg{flex:none}
+.wl-err{margin:0;background:#FDE2E2;color:#A0262A;border-radius:12px;padding:12px 14px;font-weight:600}
+.wl button[disabled]{opacity:.7;cursor:wait}
+.joined .wl-done{display:flex}.joined .wl{display:none}
 .hero .alt{margin:14px 0 0;font-size:15px;color:var(--ink-2)}
 @media (max-width:640px){.wl{grid-template-columns:1fr}}
 #waitlist{background:#0E1726;color:#FFFFFF}
@@ -389,7 +393,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
       <h2>Want your car washed?</h2>
       <p class="sub">We’re lining up washers now. Join the waitlist and we’ll let you know as soon as we’re washing on your street. No payment, no commitment.</p>
       <div class="form-card">
-        <p class="wl-done">Thanks, you’re on the list. We’ll be in touch when we’re washing near you.</p>
+        <div class="wl-done" role="status" aria-live="polite"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0E7C66" stroke-width="2.6" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg><div><b>You’re on the list!</b><span>Thanks for joining. We’ll be in touch as soon as we’re washing near you.</span></div></div>
         <form class="wl" action="https://formsubmit.co/admin@elitedigitalconsulting.com.au" method="POST">
           <input type="hidden" name="_subject" value="New customer waitlist sign-up">
           <input type="hidden" name="_template" value="table">
@@ -404,6 +408,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
           <label>What you’d want<select name="Service" required><option value="">Choose…</option><option>Exterior wash</option><option>Exterior and interior</option><option>Full detail</option><option>Not sure yet</option></select></label>
           <label>How often<select name="How often" required><option value="">Choose…</option><option>One-off</option><option>Monthly</option><option>Fortnightly</option><option>Weekly</option><option>Not sure yet</option></select></label>
           <label>How did you hear about us?<select name="Heard via"><option value="">Choose…</option><option>Letterbox flyer</option><option>Noticeboard flyer</option><option>Facebook</option><option>Friend or neighbour</option><option>Google</option><option>Other</option></select></label>
+          <p class="wl-err full" role="alert" hidden>Sorry, that didn’t go through. Please check your connection and try again.</p>
           <button class="btn btn-primary full" type="submit">Join the waitlist</button>
         </form>
       </div>
@@ -510,6 +515,25 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
 <script src="https://tally.so/widgets/embed.js" async onload="Tally.loadEmbeds()"></script>
 <script>document.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc});</script>
 <script>if(!window.__BOOKING_ON){document.title="Earn cash washing cars on the Northern Beaches, Australia";}</script>
+<script>
+(function(){
+  var f=document.querySelector("form.wl"); if(!f) return;
+  var btn=f.querySelector('button[type="submit"]'), err=f.querySelector(".wl-err");
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    if(f.elements._honey && f.elements._honey.value) return;
+    btn.disabled=true; btn.textContent="Sending…"; err.hidden=true;
+    fetch(f.action.replace("formsubmit.co/","formsubmit.co/ajax/"),{method:"POST",headers:{"Accept":"application/json"},body:new FormData(f)})
+      .then(function(r){return r.json()})
+      .then(function(d){
+        if(String(d.success)!=="true") throw new Error(d.message||"Not sent");
+        document.documentElement.classList.add("joined"); f.reset();
+        document.getElementById("waitlist").scrollIntoView({behavior:"smooth",block:"start"});
+      })
+      .catch(function(x){ console.warn("Waitlist:",x); err.hidden=false; btn.disabled=false; btn.textContent="Join the waitlist"; });
+  });
+})();
+</script>
 <script>if(/[?&]joined=1/.test(location.search))document.documentElement.classList.add("joined");</script>
 </body>
 </html>
