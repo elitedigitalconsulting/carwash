@@ -17,6 +17,7 @@ var BOOKING_ENABLED = false;
   if (/[?&]booking=off/.test(q)) on = false;
   document.documentElement.classList.add(on ? "f-booking" : "f-washers");
   window.__BOOKING_ON = on;
+  if (/[?&]newform=1/.test(q)) document.documentElement.classList.add("newform");
 })();
 </script>
 <style>
@@ -175,16 +176,33 @@ details p{margin:0 0 16px;color:var(--ink-2);max-width:68ch}
 .wl label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px}
 .wl label small{font-weight:500;color:var(--ink-2)}
 .wl input,.wl select{font:inherit;font-weight:400;min-height:48px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink)}
-.wl input:focus,.wl select:focus{outline:3px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
+.wl input:focus,.wl select:focus,.wl textarea:focus{outline:3px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
 .wl .full{grid-column:1/-1}
 .wl-done{display:none;align-items:center;gap:16px;background:var(--sky);border-radius:16px;padding:24px}
 .wl-done b{display:block;font-size:22px;margin-bottom:4px}
 .wl-done svg{flex:none}
 .wl-err{margin:0;background:#FDE2E2;color:#A0262A;border-radius:12px;padding:12px 14px;font-weight:600}
 .wl button[disabled]{opacity:.7;cursor:wait}
-.joined .wl-done{display:flex}.joined .wl{display:none}
+section.sent .wl-done{display:flex}section.sent .wl{display:none}
 .hero .alt{margin:14px 0 0;font-size:15px;color:var(--ink-2)}
 @media (max-width:640px){.wl{grid-template-columns:1fr}}
+html:not(.newform) #signup-new{display:none!important}
+#signup-new{background:#0E1726;color:#FFFFFF}
+#signup-new .sub{color:inherit;opacity:.82}
+#signup-new .form-card{background:#0E7C66;border-color:transparent}
+#signup-new .wl label,#signup-new .chk legend,#signup-new .note{color:#FFFFFF}
+#signup-new .wl .btn-primary{background:#FFFFFF;color:#0E1726}
+#signup-new .wl-done{background:#FFFFFF;color:#0E1726}
+.wl textarea{font:inherit;font-weight:400;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);resize:vertical}
+.wl .parent{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;background:rgba(255,255,255,.1);border-radius:14px;padding:16px}
+.wl .parent[hidden]{display:none}
+.wl .note{margin:0;grid-column:1/-1;font-weight:600}
+.chk{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px 22px;min-width:0}
+.chk legend{font-weight:700;font-size:15px;padding:0;margin-bottom:10px}
+.wl .chk label,.wl label.tick{flex-direction:row;align-items:center;gap:8px;font-weight:500}
+.wl input[type=checkbox]{min-height:0;width:20px;height:20px;padding:0;margin:0;accent-color:#0E1726;flex:none}
+.wl .chk .oth input{min-height:40px;width:150px;padding:6px 10px}
+@media (max-width:640px){.wl .parent{grid-template-columns:1fr}}
 #waitlist{background:#0E1726;color:#FFFFFF}
 #waitlist .sub{color:inherit;opacity:.82}
 #waitlist .form-card{background:#0E7C66;border-color:transparent}
@@ -388,6 +406,41 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
     </div>
   </section>
 
+  <section id="signup-new" data-show="washers">
+    <div class="wrap">
+      <h2>Sign up as a washer</h2>
+      <p class="sub">Takes about two minutes. We’ll be in touch within a few days.</p>
+      <div class="form-card">
+        <div class="wl-done" role="status" aria-live="polite"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0E7C66" stroke-width="2.6" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg><div><b>You’re signed up!</b><span>Thanks for applying. We’ll be in touch within a few days to confirm your details.</span></div></div>
+        <form class="wl" action="https://formsubmit.co/admin@elitedigitalconsulting.com.au" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="New washer sign-up">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <label>Full name<input name="Name" required autocomplete="name"></label>
+          <label>Email<input type="email" name="email" required autocomplete="email"></label>
+          <label>Mobile number<input type="tel" name="Mobile" required autocomplete="tel"></label>
+          <label>How old are you?<select name="Age" required><option value="">Choose…</option><option>15</option><option>16</option><option>17</option><option>18 or older</option></select></label>
+          <div class="parent full" hidden>
+            <p class="note">As you’re under 18, we need a parent or guardian’s OK.</p>
+            <label>Parent or guardian’s name<input name="Parent name" required></label>
+            <label>Parent or guardian’s mobile<input type="tel" name="Parent mobile" required></label>
+            <label class="tick full"><input type="checkbox" name="Parent consent" value="Yes" required>My parent or guardian knows I’m signing up and is happy for me to wash cars</label>
+          </div>
+          <fieldset class="chk full" data-required="1"><legend>Suburbs you can work in</legend><input type="hidden" name="Suburbs"><label><input type="checkbox" value="Forestville">Forestville</label><label><input type="checkbox" value="Frenchs Forest">Frenchs Forest</label><label><input type="checkbox" value="Killarney Heights">Killarney Heights</label><label><input type="checkbox" value="Belrose">Belrose</label><label class="oth">Other:<input class="other" type="text" placeholder="Suburb"></label></fieldset>
+          <fieldset class="chk full" data-required="1"><legend>When are you usually free?</legend><input type="hidden" name="Free times"><label><input type="checkbox" value="Weekday mornings">Weekday mornings</label><label><input type="checkbox" value="Weekday afternoons">Weekday afternoons</label><label><input type="checkbox" value="Saturdays">Saturdays</label><label><input type="checkbox" value="Sundays">Sundays</label></fieldset>
+          <label>How would you get to jobs?<select name="Transport" required><option value="">Choose…</option><option>Car</option><option>Bike or scooter</option><option>Walking</option><option>Public transport</option></select></label>
+          <label>Have you washed or detailed cars before?<select name="Experience" required><option value="">Choose…</option><option>Never</option><option>Just my own car</option><option>Paid work</option><option>I run a detailing business</option></select></label>
+          <label>Do you have an ABN? (optional)<select name="ABN"><option value="">Choose…</option><option>Yes</option><option>No</option><option>Not sure what that is</option></select></label>
+          <label>How did you hear about us? (optional)<select name="Heard via"><option value="">Choose…</option><option>Letterbox flyer</option><option>Flyer at the shops</option><option>Google</option><option>Social media</option><option>A friend</option><option>Other</option></select></label>
+          <label class="full">Anything else we should know? (optional)<textarea name="Notes" rows="3"></textarea></label>
+          <p class="wl-err full" role="alert" hidden>Sorry, that didn’t go through. Please check your connection and try again.</p>
+          <button class="btn btn-primary full" type="submit">Sign up</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <section id="waitlist" class="book" data-show="washers">
     <div class="wrap">
       <h2>Want your car washed?</h2>
@@ -517,23 +570,38 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
 <script>if(!window.__BOOKING_ON){document.title="Earn cash washing cars on the Northern Beaches, Australia";}</script>
 <script>
 (function(){
-  var f=document.querySelector("form.wl"); if(!f) return;
-  var btn=f.querySelector('button[type="submit"]'), err=f.querySelector(".wl-err");
-  f.addEventListener("submit",function(e){
-    e.preventDefault();
-    if(f.elements._honey && f.elements._honey.value) return;
-    btn.disabled=true; btn.textContent="Sending…"; err.hidden=true;
-    fetch(f.action.replace("formsubmit.co/","formsubmit.co/ajax/"),{method:"POST",headers:{"Accept":"application/json"},body:new FormData(f)})
-      .then(function(r){return r.json()})
-      .then(function(d){
-        if(String(d.success)!=="true") throw new Error(d.message||"Not sent");
-        document.documentElement.classList.add("joined"); f.reset();
-        document.getElementById("waitlist").scrollIntoView({behavior:"smooth",block:"start"});
-      })
-      .catch(function(x){ console.warn("Waitlist:",x); err.hidden=false; btn.disabled=false; btn.textContent="Join the waitlist"; });
+  document.querySelectorAll("form.wl").forEach(function(f){
+    var sec=f.closest("section"), btn=f.querySelector('button[type="submit"]'), err=f.querySelector(".wl-err"), label=btn.textContent, msg=err.textContent;
+    var age=f.querySelector('[name="Age"]'), par=f.querySelector(".parent");
+    function syncParent(){ if(!age||!par) return; var on=!!age.value && age.value!=="18 or older"; par.hidden=!on; par.querySelectorAll("input").forEach(function(i){i.disabled=!on}); }
+    if(age){ age.addEventListener("change",syncParent); syncParent(); }
+    function fail(t,el){ err.textContent=t||msg; err.hidden=false; btn.disabled=false; btn.textContent=label; (el||err).scrollIntoView({behavior:"smooth",block:"center"}); }
+    f.addEventListener("submit",function(e){
+      e.preventDefault();
+      if(f.elements._honey && f.elements._honey.value) return;
+      err.hidden=true;
+      if(!f.checkValidity()){ f.reportValidity(); return; }
+      var bad=null;
+      f.querySelectorAll("fieldset.chk").forEach(function(g){
+        var v=[].map.call(g.querySelectorAll("input[type=checkbox]:checked"),function(c){return c.value});
+        var o=g.querySelector("input.other"); if(o && o.value.trim()) v.push(o.value.trim());
+        g.querySelector("input[type=hidden]").value=v.join(", ");
+        if(g.dataset.required && !v.length && !bad) bad=g;
+      });
+      if(bad){ fail("Please choose at least one option for \u201c"+bad.querySelector("legend").textContent+"\u201d.",bad); return; }
+      btn.disabled=true; btn.textContent="Sending\u2026";
+      fetch(f.action.replace("formsubmit.co/","formsubmit.co/ajax/"),{method:"POST",headers:{"Accept":"application/json"},body:new FormData(f)})
+        .then(function(r){return r.json()})
+        .then(function(d){
+          if(String(d.success)!=="true") throw new Error(d.message||"Not sent");
+          sec.classList.add("sent"); f.reset(); syncParent(); btn.disabled=false; btn.textContent=label;
+          sec.scrollIntoView({behavior:"smooth",block:"start"});
+        })
+        .catch(function(x){ console.warn("Form:",x); fail(); });
+    });
   });
+  if(/[?&]joined=1/.test(location.search)){ var w=document.getElementById("waitlist"); if(w) w.classList.add("sent"); }
 })();
 </script>
-<script>if(/[?&]joined=1/.test(location.search))document.documentElement.classList.add("joined");</script>
 </body>
 </html>
