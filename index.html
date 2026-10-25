@@ -4,6 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mobile car wash on the Northern Beaches, Australia</title>
+<script>
+/* ===== FEATURE SWITCH =====
+   Customer prices and booking are hidden while this is false.
+   Change false to true to switch them on for everyone.
+   Preview without switching on: add ?booking=on to the address. */
+var BOOKING_ENABLED = false;
+(function(){
+  var q=location.search, h=location.hash;
+  var on = BOOKING_ENABLED;
+  if (/[?&]booking=on/.test(q) || h==="#preview-booking") on = true;
+  if (/[?&]booking=off/.test(q)) on = false;
+  document.documentElement.classList.add(on ? "f-booking" : "f-washers");
+  window.__BOOKING_ON = on;
+})();
+</script>
+<style>
+html.f-washers [data-show="booking"]{display:none!important}
+html.f-booking [data-show="washers"]{display:none!important}
+</style>
 <meta name="description" content="A local washer cleans your car in your driveway. Exterior washes from $90, inside-and-out and full details, with repeat plans up to 20% off. Northern Beaches, Australia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -157,12 +176,15 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
 <header class="top">
   <div class="wrap">
     <nav class="nav" aria-label="Main">
-      <a href="#prices">Prices</a>
-      <a href="#how">How it works</a>
-      <a href="#whats-included">What’s included</a>
+      <a href="#prices" data-show="booking">Prices</a>
+      <a href="#how" data-show="booking">How it works</a>
+      <a href="#whats-included" data-show="booking">What’s included</a>
       <a href="#washers">Become a washer</a>
-      <a href="#faq">FAQ</a>
-      <a class="btn btn-primary" href="#book">Book a wash</a>
+      <a href="#faq" data-show="booking">FAQ</a>
+      <a href="#areas" data-show="washers">Where we work</a>
+      <a href="#washer-faq" data-show="washers">FAQ</a>
+      <a class="btn btn-primary" href="#book" data-show="booking">Book a wash</a>
+      <a class="btn btn-primary" href="https://forms.gle/V7g7wbvaxviD4M5D9" target="_blank" rel="noopener" data-show="washers">Sign up as a washer</a>
     </nav>
   </div>
 </header>
@@ -170,18 +192,30 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
 <main id="top">
   <section class="hero" style="padding-bottom:0">
     <div class="wrap">
-      <h1>Your car, washed in your driveway.</h1>
-      <p class="lede">A trusted local washer comes to you anywhere on the Northern Beaches, Australia. Pick your wash, see the price straight away and pay in the app.</p>
-      <div class="ctas">
+      <h1 data-show="booking">Your car, washed in your driveway.</h1>
+      <h1 data-show="washers">Get paid to wash cars near home.</h1>
+      <p class="lede" data-show="booking">A trusted local washer comes to you anywhere on the Northern Beaches, Australia. Pick your wash, see the price straight away and pay in the app.</p>
+      <p class="lede" data-show="washers">Pick your own car wash jobs on streets near you on the Northern Beaches, Australia. Teens, side hustlers and detailing businesses all welcome.</p>
+      <div class="ctas" data-show="booking">
         <a class="btn btn-primary" href="#prices">See your price</a>
         <a class="btn btn-ghost" href="#washers">Earn as a washer</a>
+      </div>
+      <div class="ctas" data-show="washers">
+        <a class="btn btn-primary" href="https://forms.gle/V7g7wbvaxviD4M5D9" target="_blank" rel="noopener">Sign up as a washer</a>
+        <a class="btn btn-ghost" href="#washers">See how it works</a>
       </div>
       <div class="hero-photo"><img src="car%20wash.jpeg" alt="A washer hand-cleaning a car wheel covered in foam" onerror="this.parentNode.style.display='none'"></div>
     </div>
   </section>
   <div class="facts">
     <div class="wrap">
-      <ul>
+      <ul data-show="washers">
+        <li><b>Up to $150</b>Per wash, excluding tips</li>
+        <li><b>Your schedule</b>Pick the jobs and times that suit you</li>
+        <li><b>Close to home</b>Jobs on streets near you</li>
+        <li><b>$20 per referral</b>When a washer you refer finishes 2 jobs</li>
+      </ul>
+      <ul data-show="booking">
         <li><b>From $90</b>Exterior wash, small car</li>
         <li><b>Up to 20% off</b>With a weekly, fortnightly or monthly plan</li>
         <li><b>Prepaid in the app</b>No cash, no surprises</li>
@@ -190,7 +224,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
     </div>
   </div>
 
-  <section id="prices">
+  <section id="prices" data-show="booking">
     <div class="wrap">
       <h2>See your price in seconds.</h2>
       <p class="sub">Choose who washes it, what you need and your car’s size. Prices are fixed before you book.</p>
@@ -243,7 +277,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
     </div>
   </section>
 
-  <section id="how">
+  <section id="how" data-show="booking">
     <div class="wrap">
       <h2>How it works</h2>
       <p class="sub">No drive to the car wash and no waiting around.</p>
@@ -255,7 +289,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
     </div>
   </section>
 
-  <section id="whats-included" style="padding-top:0">
+  <section id="whats-included" style="padding-top:0" data-show="booking">
     <div class="wrap">
       <h2>What’s included</h2>
       <p class="sub">Each level includes everything in the one before it. Prices are for a small car.</p>
@@ -282,7 +316,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
     </div>
   </section>
 
-  <section style="padding-top:0">
+  <section style="padding-top:0" data-show="booking">
     <div class="wrap plans">
       <div>
         <h2>Keep it clean for less</h2>
@@ -327,7 +361,19 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
     </div>
   </section>
 
-  <section id="faq" style="padding-top:0">
+  <section id="washer-faq" style="padding-top:0" data-show="washers">
+    <div class="wrap">
+      <h2>Questions</h2>
+      <details><summary>Who can sign up?</summary><p>Three groups: 15 to 17 year olds with a parent’s approval, adults who are new to car washing, and experienced washers or detailing businesses, who can join as Pro.</p></details>
+      <details><summary>What do I need?</summary><p>Waterless car wash products and basic equipment like microfibre cloths. Experienced washers and Pro detailers bring their own professional gear.</p></details>
+      <details><summary>How much can I earn?</summary><p>Up to $150 per wash, excluding tips. What you earn depends on the job, the car’s size and your level.</p></details>
+      <details><summary>Where are the jobs?</summary><p>On streets near you on the Northern Beaches. You choose which jobs to take and when.</p></details>
+      <details><summary>What happens after I sign up?</summary><p>We’ll be in touch to confirm your details and your level. Under 18? We’ll contact your parent for approval first.</p></details>
+      <a class="btn btn-primary" href="https://forms.gle/V7g7wbvaxviD4M5D9" target="_blank" rel="noopener" style="margin-top:28px">Sign up as a washer</a>
+    </div>
+  </section>
+
+  <section id="faq" style="padding-top:0" data-show="booking">
     <div class="wrap">
       <h2>Questions</h2>
       <details><summary>Who will wash my car?</summary><p>A washer who lives nearby. Every washer is ID-checked and rated by customers. You choose the level: Standard, Premium or Pro.</p></details>
@@ -338,7 +384,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
     </div>
   </section>
 
-  <section id="book" class="book">
+  <section id="book" class="book" data-show="booking">
     <div class="wrap">
       <h2>Book your first wash</h2>
       <p class="sub">Send a booking request in about a minute. We’ll confirm your price and time within 24 hours, and nothing is charged until you approve it.</p>
@@ -393,5 +439,6 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
 </script>
 <script src="https://tally.so/widgets/embed.js" async onload="Tally.loadEmbeds()"></script>
 <script>document.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc});</script>
+<script>if(!window.__BOOKING_ON){document.title="Earn cash washing cars on the Northern Beaches, Australia";}</script>
 </body>
 </html>
