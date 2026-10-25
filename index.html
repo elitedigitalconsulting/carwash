@@ -171,6 +171,16 @@ details p{margin:0 0 16px;color:var(--ink-2);max-width:68ch}
 .form-card iframe{display:block;width:100%;border:0}
 #signup .form-card{padding:8px}
 @media (max-width:600px){#signup .form-card iframe{height:1450px}}
+.wl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px}
+.wl label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px}
+.wl label small{font-weight:500;color:var(--ink-2)}
+.wl input,.wl select{font:inherit;font-weight:400;min-height:48px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink)}
+.wl input:focus,.wl select:focus{outline:3px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
+.wl .full{grid-column:1/-1}
+.wl-done{display:none;background:var(--sky);border-radius:16px;padding:22px;font-weight:600}
+.joined .wl-done{display:block}.joined .wl{display:none}
+.hero .alt{margin:14px 0 0;font-size:15px;color:var(--ink-2)}
+@media (max-width:640px){.wl{grid-template-columns:1fr}}
 .form-fallback{margin:14px 0 0;font-size:15px;color:var(--ink-2)}
 footer{padding:36px 0 48px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
@@ -188,6 +198,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
       <a href="#faq" data-show="booking">FAQ</a>
       <a href="#areas" data-show="washers">Locations</a>
       <a href="#washer-faq" data-show="washers">FAQ</a>
+      <a href="#waitlist" data-show="washers">Get your car washed</a>
       <a class="btn btn-primary" href="#book" data-show="booking">Book a wash</a>
       <a class="btn btn-primary" href="#signup" data-show="washers">Sign up as a washer</a>
     </nav>
@@ -209,6 +220,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
         <a class="btn btn-primary" href="#signup">Sign up as a washer</a>
         <a class="btn btn-ghost" href="#washers">See how it works</a>
       </div>
+      <p class="alt" data-show="washers">Want your car washed instead? <a href="#waitlist">Join the waitlist</a></p>
       <div class="hero-photo"><img src="car%20wash.jpeg" alt="A washer hand-cleaning a car wheel covered in foam" onerror="this.parentNode.style.display='none'"></div>
     </div>
   </section>
@@ -366,6 +378,32 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
     </div>
   </section>
 
+  <section id="waitlist" class="book" data-show="washers">
+    <div class="wrap">
+      <h2>Want your car washed?</h2>
+      <p class="sub">We’re lining up washers now. Join the waitlist and we’ll let you know as soon as we’re washing on your street. No payment, no commitment.</p>
+      <div class="form-card">
+        <p class="wl-done">Thanks, you’re on the list. We’ll be in touch when we’re washing near you.</p>
+        <form class="wl" action="https://formsubmit.co/admin@elitedigitalconsulting.com.au" method="POST">
+          <input type="hidden" name="_subject" value="New customer waitlist sign-up">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://elitedigitalconsulting.github.io/carwash/?joined=1#waitlist">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <label>Name<input name="Name" required autocomplete="name"></label>
+          <label>Email<input type="email" name="email" required autocomplete="email"></label>
+          <label>Mobile (optional)<input type="tel" name="Mobile" autocomplete="tel"></label>
+          <label>Suburb<select name="Suburb" required><option value="">Choose…</option><option>Forestville</option><option>Frenchs Forest</option><option>Killarney Heights</option><option>Belrose</option><option>Other</option></select></label>
+          <label>Car size<select name="Car size" required><option value="">Choose…</option><option>Small</option><option>Sedan</option><option>SUV or ute</option><option>Van</option></select></label>
+          <label>What you’d want<select name="Service" required><option value="">Choose…</option><option>Exterior wash</option><option>Exterior and interior</option><option>Full detail</option><option>Not sure yet</option></select></label>
+          <label>How often<select name="How often" required><option value="">Choose…</option><option>One-off</option><option>Monthly</option><option>Fortnightly</option><option>Weekly</option><option>Not sure yet</option></select></label>
+          <label>How did you hear about us?<select name="Heard via"><option value="">Choose…</option><option>Letterbox flyer</option><option>Noticeboard flyer</option><option>Facebook</option><option>Friend or neighbour</option><option>Google</option><option>Other</option></select></label>
+          <button class="btn btn-primary full" type="submit">Join the waitlist</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <section id="about">
     <div class="wrap">
       <h2>About us</h2>
@@ -466,5 +504,6 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
 <script src="https://tally.so/widgets/embed.js" async onload="Tally.loadEmbeds()"></script>
 <script>document.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc});</script>
 <script>if(!window.__BOOKING_ON){document.title="Earn cash washing cars on the Northern Beaches, Australia";}</script>
+<script>if(/[?&]joined=1/.test(location.search))document.documentElement.classList.add("joined");</script>
 </body>
 </html>
