@@ -199,7 +199,9 @@ html:not(.newform) #signup-new{display:none!important}
 #signup-new .wl select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%230E7C66' stroke-width='2.2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
 #signup-new .wl select option{background:#FFFFFF;color:#0E1726}
 #signup-new .wl input:focus,#signup-new .wl select:focus,#signup-new .wl textarea:focus{outline:3px solid rgba(14,124,102,.35);outline-offset:1px;border-color:#0E7C66}
-#signup-new .wl input[type=checkbox]{accent-color:#0E7C66}
+#signup-new .wl input[type=checkbox]{-webkit-appearance:none;appearance:none;width:24px;height:24px;min-height:24px;border:2px solid #0E7C66;border-radius:6px;background:#FFFFFF center/18px no-repeat;cursor:pointer}
+#signup-new .wl input[type=checkbox]:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%230E7C66' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+#signup-new .wl input[type=checkbox]:focus-visible{outline:3px solid rgba(14,124,102,.35);outline-offset:1px}
 #signup-new .wl .parent{background:#E3F4EF}
 #signup-new .wl .btn-primary{background:#0E7C66;color:#FFFFFF}
 #signup-new .wl-done{background:#E3F4EF;color:#0E1726}
@@ -212,6 +214,9 @@ html:not(.newform) #signup-new{display:none!important}
 .wl .chk label,.wl label.tick{flex-direction:row;align-items:center;gap:8px;font-weight:500}
 .wl input[type=checkbox]{min-height:0;width:20px;height:20px;padding:0;margin:0;accent-color:#0E1726;flex:none}
 .wl .chk .oth input{min-height:40px;width:150px;padding:6px 10px}
+#signup-new .wl .chk .oth{flex:1 1 100%;flex-direction:column;align-items:stretch;gap:6px}
+#signup-new .wl .chk .oth input{width:100%;min-height:48px;padding:10px 14px}
+#signup-new .wl input[type=checkbox]{width:24px;height:24px;min-height:24px}
 @media (max-width:640px){.wl .parent{grid-template-columns:1fr}}
 #waitlist{background:#0E1726;color:#FFFFFF}
 #waitlist .sub{color:inherit;opacity:.82}
@@ -438,7 +443,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
             <label>Parent or guardian’s mobile<input type="tel" name="Parent mobile" required></label>
             <label class="tick full"><input type="checkbox" name="Parent consent" value="Yes" required>My parent or guardian knows I’m signing up and is happy for me to wash cars</label>
           </div>
-          <fieldset class="chk full" data-required="1"><legend>Suburbs you can work in</legend><input type="hidden" name="Suburbs"><label><input type="checkbox" value="Forestville">Forestville</label><label><input type="checkbox" value="Frenchs Forest">Frenchs Forest</label><label><input type="checkbox" value="Killarney Heights">Killarney Heights</label><label><input type="checkbox" value="Belrose">Belrose</label><label class="oth">Other:<input class="other" type="text" placeholder="Suburb"></label></fieldset>
+          <fieldset class="chk full" data-required="1"><legend>Suburbs you can work in</legend><input type="hidden" name="Suburbs"><label><input type="checkbox" value="Forestville">Forestville</label><label><input type="checkbox" value="Frenchs Forest">Frenchs Forest</label><label><input type="checkbox" value="Killarney Heights">Killarney Heights</label><label><input type="checkbox" value="Belrose">Belrose</label><label class="oth">Other suburb<input class="other" type="text" placeholder="Type your suburb"></label></fieldset>
           <fieldset class="chk full" data-required="1"><legend>When are you usually free?</legend><input type="hidden" name="Free times"><label><input type="checkbox" value="Weekday mornings">Weekday mornings</label><label><input type="checkbox" value="Weekday afternoons">Weekday afternoons</label><label><input type="checkbox" value="Saturdays">Saturdays</label><label><input type="checkbox" value="Sundays">Sundays</label></fieldset>
           <label>How would you get to jobs?<select name="Transport" required><option value="">Choose…</option><option>Car</option><option>Bike or scooter</option><option>Walking</option><option>Public transport</option></select></label>
           <label>Have you washed or detailed cars before?<select name="Experience" required><option value="">Choose…</option><option>Never</option><option>Just my own car</option><option>Paid work</option><option>I run a detailing business</option></select></label>
