@@ -17,7 +17,6 @@ var BOOKING_ENABLED = false;
   if (/[?&]booking=off/.test(q)) on = false;
   document.documentElement.classList.add(on ? "f-booking" : "f-washers");
   window.__BOOKING_ON = on;
-  if (/[?&]newform=1/.test(q)) document.documentElement.classList.add("newform");
 })();
 </script>
 <style>
@@ -173,8 +172,6 @@ details p{margin:0 0 16px;color:var(--ink-2);max-width:68ch}
 .form-card{background:#FFFFFF;border-radius:20px;padding:24px;border:1.5px solid var(--line)}
 .form-card{overflow:hidden;max-width:100%}
 .form-card iframe{display:block;width:1px;min-width:100%;max-width:100%;border:0}
-#signup .form-card{padding:8px}
-@media (max-width:600px){#signup .form-card iframe{height:1450px}}
 .wl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px}
 .wl label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px}
 .wl label small{font-weight:500;color:var(--ink-2)}
@@ -189,22 +186,21 @@ details p{margin:0 0 16px;color:var(--ink-2);max-width:68ch}
 section.sent .wl-done{display:flex}section.sent .wl{display:none}
 .hero .alt{margin:14px 0 0;font-size:15px;color:var(--ink-2)}
 @media (max-width:640px){.wl{grid-template-columns:1fr}}
-html:not(.newform) #signup-new{display:none!important}
-#signup-new{background:#0E1726;color:#FFFFFF}
-#signup-new .sub{color:inherit;opacity:.82}
-#signup-new .form-card{background:#FFFFFF;border-color:transparent}
-#signup-new .wl label,#signup-new .chk legend,#signup-new .note{color:#0E1726}
-#signup-new .wl input:not([type=checkbox]),#signup-new .wl select,#signup-new .wl textarea{background-color:#FFFFFF;color:#0E1726;border:2px solid #0E7C66}
-#signup-new .wl ::placeholder{color:#6B7280}
-#signup-new .wl select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%230E7C66' stroke-width='2.2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
-#signup-new .wl select option{background:#FFFFFF;color:#0E1726}
-#signup-new .wl input:focus,#signup-new .wl select:focus,#signup-new .wl textarea:focus{outline:3px solid rgba(14,124,102,.35);outline-offset:1px;border-color:#0E7C66}
-#signup-new .wl input[type=checkbox]{-webkit-appearance:none;appearance:none;width:24px;height:24px;min-height:24px;border:2px solid #0E7C66;border-radius:6px;background:#FFFFFF center/18px no-repeat;cursor:pointer}
-#signup-new .wl input[type=checkbox]:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%230E7C66' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
-#signup-new .wl input[type=checkbox]:focus-visible{outline:3px solid rgba(14,124,102,.35);outline-offset:1px}
-#signup-new .wl .parent{background:#E3F4EF}
-#signup-new .wl .btn-primary{background:#0E7C66;color:#FFFFFF}
-#signup-new .wl-done{background:#E3F4EF;color:#0E1726}
+#signup{background:#0E1726;color:#FFFFFF}
+#signup .sub{color:inherit;opacity:.82}
+#signup .form-card{background:#FFFFFF;border-color:transparent}
+#signup .wl label,#signup .chk legend,#signup .note{color:#0E1726}
+#signup .wl input:not([type=checkbox]),#signup .wl select,#signup .wl textarea{background-color:#FFFFFF;color:#0E1726;border:2px solid #0E7C66}
+#signup .wl ::placeholder{color:#6B7280}
+#signup .wl select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%230E7C66' stroke-width='2.2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+#signup .wl select option{background:#FFFFFF;color:#0E1726}
+#signup .wl input:focus,#signup .wl select:focus,#signup .wl textarea:focus{outline:3px solid rgba(14,124,102,.35);outline-offset:1px;border-color:#0E7C66}
+#signup .wl input[type=checkbox]{-webkit-appearance:none;appearance:none;width:24px;height:24px;min-height:24px;border:2px solid #0E7C66;border-radius:6px;background:#FFFFFF center/18px no-repeat;cursor:pointer}
+#signup .wl input[type=checkbox]:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%230E7C66' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+#signup .wl input[type=checkbox]:focus-visible{outline:3px solid rgba(14,124,102,.35);outline-offset:1px}
+#signup .wl .parent{background:#E3F4EF}
+#signup .wl .btn-primary{background:#0E7C66;color:#FFFFFF}
+#signup .wl-done{background:#E3F4EF;color:#0E1726}
 .wl textarea{font:inherit;font-weight:400;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);resize:vertical}
 .wl .parent{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;background:rgba(255,255,255,.1);border-radius:14px;padding:16px}
 .wl .parent[hidden]{display:none}
@@ -214,9 +210,9 @@ html:not(.newform) #signup-new{display:none!important}
 .wl .chk label,.wl label.tick{flex-direction:row;align-items:center;gap:8px;font-weight:500}
 .wl input[type=checkbox]{min-height:0;width:20px;height:20px;padding:0;margin:0;accent-color:#0E1726;flex:none}
 .wl .chk .oth input{min-height:40px;width:150px;padding:6px 10px}
-#signup-new .wl .chk .oth{flex:1 1 100%;flex-direction:column;align-items:stretch;gap:6px}
-#signup-new .wl .chk .oth input{width:100%;min-height:48px;padding:10px 14px}
-#signup-new .wl input[type=checkbox]{width:24px;height:24px;min-height:24px}
+#signup .wl .chk .oth{flex:1 1 100%;flex-direction:column;align-items:stretch;gap:6px}
+#signup .wl .chk .oth input{width:100%;min-height:48px;padding:10px 14px}
+#signup .wl input[type=checkbox]{width:24px;height:24px;min-height:24px}
 @media (max-width:640px){.wl .parent{grid-template-columns:1fr}}
 #waitlist{background:#0E1726;color:#FFFFFF}
 #waitlist .sub{color:inherit;opacity:.82}
@@ -410,18 +406,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
     </div>
   </section>
 
-  <section id="signup" class="book">
-    <div class="wrap">
-      <h2>Sign up as a washer</h2>
-      <p class="sub">Takes about two minutes. We’ll be in touch within a few days.</p>
-      <div class="form-card">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe7cZ6WBeVaR1eCsWU02_3lrJrrFwC0-fMM0YMYMr0DD5UHHw/viewform?embedded=true" width="100%" height="1250" frameborder="0" marginheight="0" marginwidth="0" loading="lazy" title="Washer sign-up form">Loading…</iframe>
-      </div>
-      <p class="form-fallback">Form not showing? <a href="https://forms.gle/V7g7wbvaxviD4M5D9" target="_blank" rel="noopener">Open the sign-up form in a new tab</a>.</p>
-    </div>
-  </section>
-
-  <section id="signup-new" data-show="washers">
+  <section id="signup">
     <div class="wrap">
       <h2>Sign up as a washer</h2>
       <p class="sub">Takes about two minutes. We’ll be in touch within a few days.</p>
