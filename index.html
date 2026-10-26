@@ -3,27 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mobile car wash on the Northern Beaches, Australia</title>
-<script>
-/* ===== FEATURE SWITCH =====
-   Customer prices and booking are hidden while this is false.
-   Change false to true to switch them on for everyone.
-   Preview without switching on: add ?booking=on to the address. */
-var BOOKING_ENABLED = false;
-(function(){
-  var q=location.search, h=location.hash;
-  var on = BOOKING_ENABLED;
-  if (/[?&]booking=on/.test(q) || h==="#preview-booking") on = true;
-  if (/[?&]booking=off/.test(q)) on = false;
-  document.documentElement.classList.add(on ? "f-booking" : "f-washers");
-  window.__BOOKING_ON = on;
-})();
-</script>
-<style>
-html.f-washers [data-show="booking"]{display:none!important}
-html.f-booking [data-show="washers"]{display:none!important}
-</style>
-<meta name="description" content="A local washer cleans your car in your driveway. Exterior washes from $95, inside-and-out and full details, with repeat plans up to 20% off. Northern Beaches, Australia.">
+<title>Earn cash washing cars on the Northern Beaches, Australia</title>
+<script src="switch.js"></script>
+<meta name="description" content="Get paid to wash cars near home on the Northern Beaches. Pick your own jobs on nearby streets. Side hustlers and detailing businesses welcome.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
@@ -349,7 +331,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
       <ol class="steps">
         <li><h3>Book in a minute</h3><p>Pick your wash, car size and a time. Not sure which wash? Send a photo of your car and we’ll suggest one.</p></li>
         <li><h3>A neighbour comes to you</h3><p>A washer from nearby arrives in your arrival window and works in your driveway, so you can get on with your day.</p></li>
-        <li><h3>Sit back and relax</h3><p>Pay securely once your booking is confirmed, and set up a plan if you’d like it done again.</p></li>
+        <li><h3>Sit back and relax</h3><p>Pay securely once your wash is done, and set up a plan if you’d like it done again.</p></li>
       </ol>
     </div>
   </section>
@@ -521,7 +503,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
       <h2>Questions</h2>
       <details><summary>Who will wash my car?</summary><p>A washer who lives nearby, checked by us before their first job. You choose the level: Standard, Premium or Pro.</p></details>
       <details><summary>Do I need to provide water or power?</summary><p>No. Washers bring waterless products and their own equipment.</p></details>
-      <details><summary>How do I pay?</summary><p>You pay securely online once your booking is confirmed. Washers never take cash, and tips are optional.</p></details>
+      <details><summary>How do I pay?</summary><p>You pay securely online once your wash is done. Washers never take cash, and tips are optional.</p></details>
       <details><summary>What if my car is extra dirty?</summary><p>Heavy pet hair, sand or mould can take longer. Your washer will check with you before starting, and nothing extra is charged unless you approve it.</p></details>
       <details><summary>Can I skip or cancel a plan?</summary><p>Yes. Just let us know before your next wash.</p></details>
     </div>
@@ -582,7 +564,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
 </script>
 <script src="https://tally.so/widgets/embed.js" async onload="Tally.loadEmbeds()"></script>
 <script>document.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc});</script>
-<script>if(!window.__BOOKING_ON){document.title="Earn cash washing cars on the Northern Beaches, Australia";}</script>
+<script>if(window.__BOOKING_ON){document.title="Mobile car wash on the Northern Beaches, Australia";var md=document.querySelector('meta[name="description"]');if(md)md.content="A local washer cleans your car in your driveway. Exterior washes from $95, inside-and-out and full details, with repeat plans up to 20% off. Northern Beaches, Australia.";}</script>
 <script>
 (function(){
   document.querySelectorAll("form.wl").forEach(function(f){
