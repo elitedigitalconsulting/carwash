@@ -205,6 +205,7 @@ section.sent .wl-done{display:flex}section.sent .wl{display:none}
 .wl .parent{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;background:rgba(255,255,255,.1);border-radius:14px;padding:16px}
 .wl .parent[hidden]{display:none}
 .wl .note{margin:0;grid-column:1/-1;font-weight:600}
+.wl .note.pnote{font-weight:500;font-size:14px}
 .chk{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px 22px;min-width:0}
 .chk legend{font-weight:700;font-size:15px;padding:0;margin-bottom:10px}
 .wl .chk label,.wl label.tick{flex-direction:row;align-items:center;gap:8px;font-weight:500}
@@ -430,6 +431,8 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
             <p class="note">As you’re under 18, we need a parent or guardian’s OK.</p>
             <label>Parent or guardian’s name<input name="Parent name" required></label>
             <label>Parent or guardian’s mobile<input type="tel" name="Parent mobile" required></label>
+            <label class="full">Parent or guardian’s email<input type="email" name="Parent email" required autocomplete="off"></label>
+            <p class="note pnote">We’ll email them a copy of your answers to approve.</p>
             <label class="tick full"><input type="checkbox" name="Parent consent" value="Yes" required>My parent or guardian knows I’m signing up and is happy for me to wash cars</label>
           </div>
           <fieldset class="chk full" data-required="1"><legend>Suburbs you can work in</legend><input type="hidden" name="Suburbs"><label><input type="checkbox" value="Forestville">Forestville</label><label><input type="checkbox" value="Frenchs Forest">Frenchs Forest</label><label><input type="checkbox" value="Killarney Heights">Killarney Heights</label><label><input type="checkbox" value="Belrose">Belrose</label><label class="oth">Other suburb<input class="other" type="text" placeholder="Type your suburb"></label></fieldset>
@@ -582,6 +585,23 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
     var age=f.querySelector('[name="Age"]'), par=f.querySelector(".parent");
     function syncParent(){ if(!age||!par) return; var on=!!age.value && age.value!=="18 or older"; par.hidden=!on; par.querySelectorAll("input").forEach(function(i){i.disabled=!on}); }
     if(age){ age.addEventListener("change",syncParent); syncParent(); }
+
+    function b64(o){ return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
+    function sendToParent(){
+      var E=f.elements, kid=E["Name"].value.trim(), pn=E["Parent name"].value.trim(), pe=E["Parent email"].value.trim();
+      var g=function(n){ var x=f.querySelector('input[type=hidden][name="'+n+'"]'); return x?x.value:""; };
+      var link=new URL("consent.html",location.href); link.search=""; link.hash="";
+      link.searchParams.set("d",b64({n:kid,a:E["Age"].value,ce:E["email"].value.trim(),cm:E["Mobile"].value.trim(),s:g("Suburbs"),t:g("Free times"),tr:E["Transport"].value,e:E["Experience"].value,pn:pn,pm:E["Parent mobile"].value.trim(),pe:pe}));
+      var add=function(n,v){ var i=f.querySelector('input[type=hidden][data-x="'+n+'"]'); if(!i){ i=document.createElement("input"); i.type="hidden"; i.setAttribute("data-x",n); f.appendChild(i);} i.name=n; i.value=v; };
+      E["email"].name="Washer email";               /* the washer's own email, kept in the record */
+      add("email",pe);                               /* FormSubmit sends its auto-reply to this address: the parent */
+      add("_autoresponse","Hi "+pn+",\n\n"+kid+" has applied to wash cars with us on the Northern Beaches and listed you as their parent or guardian. A copy of their answers is below.\n\nPlease review them and approve here (it takes about 30 seconds):\n"+link.href+"\n\nIf you don't approve, or weren't expecting this, use the same link to tell us, or email hello@sparqle.com.au. "+kid+" won't be offered any jobs without your approval.\n\nThanks,\nThe team at sparqle.com.au");
+      add("_next",location.href.split("?")[0].split("#")[0]+"?applied=teen#signup");
+      E["_subject"].value="New washer sign-up (under 18): parent approval requested";
+      var cap=f.querySelector('input[name="_captcha"]'); if(cap) cap.remove();   /* FormSubmit only sends auto-replies with its captcha on */
+      btn.disabled=true; btn.textContent="Sending\u2026";
+      HTMLFormElement.prototype.submit.call(f);
+    }
     function fail(t,el){ err.textContent=t||msg; err.hidden=false; btn.disabled=false; btn.textContent=label; (el||err).scrollIntoView({behavior:"smooth",block:"center"}); }
     f.addEventListener("submit",function(e){
       e.preventDefault();
@@ -596,6 +616,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
         if(g.dataset.required && !v.length && !bad) bad=g;
       });
       if(bad){ fail("Please choose at least one option for \u201c"+bad.querySelector("legend").textContent+"\u201d.",bad); return; }
+      if(par && !par.hidden){ sendToParent(); return; }
       btn.disabled=true; btn.textContent="Sending\u2026";
       fetch(f.action.replace("formsubmit.co/","formsubmit.co/ajax/"),{method:"POST",headers:{"Accept":"application/json"},body:new FormData(f)})
         .then(function(r){return r.json()})
@@ -608,6 +629,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
     });
   });
   if(/[?&]joined=1/.test(location.search)){ var w=document.getElementById("waitlist"); if(w) w.classList.add("sent"); }
+  if(/[?&]applied=teen/.test(location.search)){ var s=document.getElementById("signup"); if(s){ s.classList.add("sent"); var t=s.querySelector(".wl-done span"); if(t) t.textContent="Thanks for applying. We\u2019ve emailed your parent or guardian a copy of your answers to approve. Once they do, we\u2019ll be in touch."; } }
 })();
 </script>
 </body>

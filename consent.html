@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Parent or guardian approval · sparqle.com.au</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0E1726;--ink-2:#3A4557;--paper:#FFFFFF;--wash:#F2F5FA;--green:#0E7C66;--green-ink:#0B5E4D;--line:#D5DBE5;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ink:#EEF2F8;--ink-2:#B4BFCF;--paper:#0B1220;--wash:#121B2D;--green:#14866E;--green-ink:#7FE3C4;--line:#26324A;color-scheme:dark}}
+:root[data-theme="dark"]{--ink:#EEF2F8;--ink-2:#B4BFCF;--paper:#0B1220;--wash:#121B2D;--green:#14866E;--green-ink:#7FE3C4;--line:#26324A;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:var(--green-ink)}
+.top{border-bottom:1px solid var(--line)}
+.wrap{width:min(760px,100% - 40px);margin-inline:auto}
+.top .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;min-height:64px;gap:6px 16px;padding:10px 0}
+@media (max-width:480px){.top .wrap a[href^="mailto"]{display:none}}
+.top a{font-weight:700;text-decoration:none}
+main{padding:48px 0 72px}
+h1{font-size:clamp(34px,6vw,52px);line-height:1.05;letter-spacing:-.015em;margin:0 0 8px;font-weight:850;font-stretch:112%}
+.meta{color:var(--ink-2);font-size:15px;margin:0 0 32px}
+h2{font-size:22px;margin:36px 0 8px;line-height:1.25}
+p,li{color:var(--ink)}
+ul{padding-left:22px} li{margin:4px 0}
+.box{background:var(--wash);border-radius:14px;padding:16px 18px;margin:20px 0}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;font-size:14px;color:var(--ink-2)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 18px}
+.card{background:var(--wash);border-radius:18px;padding:20px 22px;margin:22px 0}
+.sum{display:grid;grid-template-columns:minmax(0,11em) minmax(0,1fr);gap:8px 16px;margin:0}
+.sum dt{font-weight:700;color:var(--ink-2)} .sum dd{margin:0;overflow-wrap:anywhere}
+form{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:8px}
+label>input,label>select,label>textarea{width:100%}
+label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px}
+input,select,textarea{font:inherit;font-weight:400;min-height:48px;padding:10px 14px;border-radius:12px;border:2px solid var(--green);background:#FFFFFF;color:#0E1726;max-width:100%}
+textarea{min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:3px solid rgba(14,124,102,.35);outline-offset:1px}
+label.tick{flex-direction:row;align-items:flex-start;gap:10px;font-weight:500}
+label.tick input{-webkit-appearance:none;appearance:none;flex:none;width:24px;height:24px;min-height:24px;padding:0;margin-top:2px;border:2px solid var(--green);border-radius:6px;background:#FFFFFF center/18px no-repeat;cursor:pointer}
+label.tick input:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%230E7C66' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;border-radius:12px;font:inherit;font-weight:700;font-size:17px;border:2px solid var(--green);cursor:pointer;flex:1 1 200px}
+.btn.yes{background:var(--green);color:#FFFFFF}.btn.no{background:transparent;color:var(--ink)}
+.btn[disabled]{opacity:.6;cursor:wait}
+.msg{border-radius:14px;padding:18px 20px;font-weight:600;margin:20px 0}
+.msg.ok{background:#E3F4EF;color:#0E1726}.msg.err{background:#FDE2E2;color:#A0262A}
+[hidden]{display:none!important}
+@media (max-width:520px){.sum{grid-template-columns:1fr}.sum dt{margin-top:6px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a href="./">← sparqle.com.au</a><a href="mailto:hello@sparqle.com.au">hello@sparqle.com.au</a></div></header>
+<main><div class="wrap">
+<h1>Parent or guardian approval</h1>
+<p class="meta">Takes about 30 seconds</p>
+
+<div id="bad" class="msg err" hidden>This link looks incomplete. Please use the link in your email, or contact us at <a href="mailto:hello@sparqle.com.au">hello@sparqle.com.au</a>.</div>
+
+<div id="main" hidden>
+<p><b id="kid1"></b> has applied to wash cars with us on the Northern Beaches and listed you as their parent or guardian. Please check their answers and let us know if you’re happy for them to go ahead. They won’t be offered any jobs without your approval.</p>
+<div class="card"><dl class="sum" id="sum"></dl></div>
+
+<form id="cf" novalidate>
+  <label>Your name<input name="Parent name" required autocomplete="name"></label>
+  <label><span>Your relationship to <span id="kid2"></span></span><select name="Relationship" required><option value="">Choose…</option><option>Parent</option><option>Legal guardian</option></select></label>
+  <label>Your mobile<input type="tel" name="Parent mobile" required autocomplete="tel"></label>
+  <label>Anything we should know? (optional)<textarea name="Parent comments"></textarea></label>
+  <label class="tick"><input type="checkbox" id="agree"><span>I’m the parent or legal guardian of <span id="kid3"></span>. I’ve reviewed their answers and I’m happy for them to sign up and wash cars with sparqle.com.au, as described in the <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>.</span></label>
+  <div id="err" class="msg err" hidden></div>
+  <div class="btns">
+    <button class="btn yes" type="button" data-d="APPROVED">I approve</button>
+    <button class="btn no" type="button" data-d="DECLINED">I don’t approve</button>
+  </div>
+</form>
+</div>
+
+<div id="done" class="msg ok" hidden></div>
+</div></main>
+<footer><div class="wrap"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms and disclaimer</a><a href="mailto:hello@sparqle.com.au">hello@sparqle.com.au</a><span>Sydney, Australia</span></div></footer>
+<script>
+(function(){
+  var ADMIN="https://formsubmit.co/ajax/admin@elitedigitalconsulting.com.au";
+  var d=null;
+  try{ var raw=new URLSearchParams(location.search).get("d"); if(raw){ raw=raw.replace(/-/g,"+").replace(/_/g,"/"); while(raw.length%4) raw+="="; d=JSON.parse(decodeURIComponent(escape(atob(raw)))); } }catch(e){ d=null; }
+  if(!d||!d.n){ document.getElementById("bad").hidden=false; return; }
+  document.getElementById("main").hidden=false;
+  ["kid1","kid2","kid3"].forEach(function(id){ document.getElementById(id).textContent=d.n; });
+  var rows=[["Name",d.n],["Age",d.a],["Email",d.ce],["Mobile",d.cm],["Suburbs",d.s],["Usually free",d.t],["Getting to jobs",d.tr],["Experience",d.e]];
+  var dl=document.getElementById("sum");
+  rows.forEach(function(r){ if(!r[1]) return; var dt=document.createElement("dt"); dt.textContent=r[0]; var dd=document.createElement("dd"); dd.textContent=r[1]; dl.appendChild(dt); dl.appendChild(dd); });
+  var f=document.getElementById("cf"), err=document.getElementById("err");
+  f.elements["Parent name"].value=d.pn||""; f.elements["Parent mobile"].value=d.pm||"";
+  var btns=f.querySelectorAll("button");
+  btns.forEach(function(b){ b.addEventListener("click",function(){
+    var dec=b.dataset.d; err.hidden=true;
+    if(!f.checkValidity()){ f.reportValidity(); return; }
+    if(dec==="APPROVED" && !document.getElementById("agree").checked){ err.textContent="Please tick the box to confirm you approve."; err.hidden=false; return; }
+    var body={
+      _subject:"Parent consent "+dec+": "+d.n, _template:"table", _captcha:"false",
+      "Decision":dec, "Child name":d.n, "Child age":d.a, "Child email":d.ce||"", "Child mobile":d.cm||"",
+      "Suburbs":d.s||"", "Usually free":d.t||"", "Transport":d.tr||"", "Experience":d.e||"",
+      "Parent name":f.elements["Parent name"].value, "Relationship":f.elements["Relationship"].value,
+      "Parent mobile":f.elements["Parent mobile"].value, "email":d.pe||"",
+      "Parent comments":f.elements["Parent comments"].value,
+      "Confirmation":dec==="APPROVED"?"Ticked: I'm the parent or legal guardian, I've reviewed the answers and I'm happy for them to sign up and wash cars, per the Terms and Privacy Policy.":"Parent chose not to approve.",
+      "Submitted at":new Date().toLocaleString("en-AU",{timeZone:"Australia/Sydney"})+" (Sydney time)"
+    };
+    btns.forEach(function(x){x.disabled=true}); b.textContent="Sending\u2026";
+    fetch(ADMIN,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(body)})
+      .then(function(r){return r.json()})
+      .then(function(r){ if(String(r.success)!=="true") throw new Error(r.message||"Not sent");
+        document.getElementById("main").hidden=true; var m=document.getElementById("done"); m.hidden=false;
+        m.textContent= dec==="APPROVED" ? "Thank you. Your approval is recorded, and we’ll be in touch with "+d.n+" soon. We may call you to confirm before their first job." : "Thanks for letting us know. We won’t offer "+d.n+" any jobs, and we’ll delete their application.";
+        window.scrollTo({top:0,behavior:"smooth"});
+      })
+      .catch(function(x){ console.warn(x); btns.forEach(function(y){y.disabled=false}); btns[0].textContent="I approve"; btns[1].textContent="I don\u2019t approve"; err.textContent="Sorry, that didn\u2019t go through. Please check your connection and try again."; err.hidden=false; });
+  }); });
+})();
+</script>
+</body>
+</html>
