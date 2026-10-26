@@ -48,6 +48,7 @@ label.tick input:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='
 .msg{border-radius:14px;padding:18px 20px;font-weight:600;margin:20px 0}
 .msg.ok{background:#E3F4EF;color:#0E1726}
 .ferr{color:#A0262A;font-weight:600;font-size:13px}
+.hint{font-weight:500;font-size:13px;color:var(--ink-2)}
 input.bad{border-color:#A0262A}.msg.err{background:#FDE2E2;color:#A0262A}
 [hidden]{display:none!important}
 @media (max-width:520px){.sum{grid-template-columns:1fr}.sum dt{margin-top:6px}}
@@ -66,7 +67,7 @@ input.bad{border-color:#A0262A}.msg.err{background:#FDE2E2;color:#A0262A}
 <div class="card"><dl class="sum" id="sum"></dl></div>
 
 <form id="cf" novalidate>
-  <label>Your name<input name="Parent name" required autocomplete="name"></label>
+  <label>Your full name<input name="Parent name" required autocomplete="name"><small class="hint">Typing your name here is your signature.</small></label>
   <label><span>Your relationship to <span id="kid2"></span></span><select name="Relationship" required><option value="">Choose…</option><option>Parent</option><option>Legal guardian</option></select></label>
   <label>Your mobile<input type="tel" name="Parent mobile" required autocomplete="tel"></label>
   <label>Anything we should know? (optional)<textarea name="Parent comments"></textarea></label>
@@ -108,13 +109,14 @@ input.bad{border-color:#A0262A}.msg.err{background:#FDE2E2;color:#A0262A}
     if(!f.checkValidity()){ f.reportValidity(); return; }
     if(dec==="APPROVED" && !document.getElementById("agree").checked){ err.textContent="Please tick the box to confirm you approve."; err.hidden=false; return; }
     var body={
-      _subject:"Parent consent "+dec+": "+d.n, _template:"table", _captcha:"false",
+      _subject:(dec==="APPROVED"?"Written parent consent RECEIVED: ":"Parent consent DECLINED: ")+d.n, _template:"table", _captcha:"false",
       "Decision":dec, "Child name":d.n, "Child age":d.a, "Child email":d.ce||"", "Child mobile":d.cm||"",
       "Suburbs":d.s||"", "Usually free":d.t||"", "Transport":d.tr||"", "Experience":d.e||"",
       "Parent name":f.elements["Parent name"].value, "Relationship":f.elements["Relationship"].value,
-      "Parent mobile":f.elements["Parent mobile"].value, "email":d.pe||"",
+      "Parent mobile":f.elements["Parent mobile"].value, "Parent email":d.pe||"", "email":d.pe||"",
       "Parent comments":f.elements["Parent comments"].value,
-      "Confirmation":dec==="APPROVED"?"Ticked: I'm the parent or legal guardian, I've reviewed the answers and I'm happy for them to sign up and wash cars, per the Terms and Privacy Policy.":"Parent chose not to approve.",
+      "Consent statement":dec==="APPROVED"?"I'm the parent or legal guardian of "+d.n+". I've reviewed their answers and I'm happy for them to sign up and wash cars with sparqle.com.au, as described in the Terms and Privacy Policy. (Box ticked.)":"Parent chose not to approve.",
+      "Signed (typed name)":dec==="APPROVED"?f.elements["Parent name"].value:"",
       "Submitted at":new Date().toLocaleString("en-AU",{timeZone:"Australia/Sydney"})+" (Sydney time)"
     };
     btns.forEach(function(x){x.disabled=true}); b.textContent="Sending\u2026";

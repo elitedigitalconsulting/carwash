@@ -609,27 +609,21 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
 
     function b64(o){ return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
     function sendToParent(){
+      /* Separate email to the parent: FormSubmit's auto-reply goes to the field named "email".
+         Auto-replies only work with a normal (non-background) submit and FormSubmit's captcha on. */
       var E=f.elements, kid=E["Name"].value.trim(), pn=E["Parent name"].value.trim(), pe=E["Parent email"].value.trim();
       var g=function(n){ var x=f.querySelector('input[type=hidden][name="'+n+'"]'); return x?x.value:""; };
       var link=new URL("consent.html",location.href); link.search=""; link.hash="";
       link.searchParams.set("d",b64({n:kid,a:E["Age"].value,ce:E["email"].value.trim(),cm:E["Mobile"].value.trim(),s:g("Suburbs"),t:g("Free times"),tr:E["Transport"].value,e:E["Experience"].value,pn:pn,pm:E["Parent mobile"].value.trim(),pe:pe}));
-      var fd=new FormData();
-      fd.append("_subject","Parent approval needed: "+kid+"\u2019s washer application");
-      fd.append("_cc",pe);                     /* the parent is copied on this email */
-      fd.append("_template","table"); fd.append("_captcha","false");
-      fd.append("Message for the parent or guardian","Hi "+pn+", "+kid+" has applied to wash cars with us on the Northern Beaches and listed you as their parent or guardian. Their answers are below. Please review them, then approve or decline using the link underneath. "+kid+" won\u2019t be offered any jobs without your approval. Questions? Email hello@sparqle.com.au.");
-      fd.append("Approve or decline here",link.href);
-      new FormData(f).forEach(function(v,k){ if(k.charAt(0)!=="_") fd.append(k,v); });
+      var add=function(n,v){ var i=f.querySelector('input[type=hidden][data-x="'+n+'"]'); if(!i){ i=document.createElement("input"); i.type="hidden"; i.setAttribute("data-x",n); f.appendChild(i);} i.name=n; i.value=v; };
+      E["email"].name="Washer email";              /* keep the washer's own email in your copy */
+      add("email",pe);                              /* the parent's separate email goes here */
+      add("_autoresponse","Hi "+pn+",\n\n"+kid+" has applied to wash cars with us on the Northern Beaches and listed you as their parent or guardian. Their answers are included below.\n\nWe need your written approval before "+kid+" can do any work. Please review their answers, then approve or decline here (about 30 seconds):\n"+link.href+"\n\nIf you weren't expecting this, you can decline using the same link or email hello@sparqle.com.au.\n\nThanks,\nThe team at sparqle.com.au");
+      add("_next",location.href.split("?")[0].split("#")[0]+"?applied=teen#signup");
+      E["_subject"].value="New washer sign-up (under 18): parent approval requested";
+      var cap=f.querySelector('input[name="_captcha"]'); if(cap) cap.remove();
       btn.disabled=true; btn.textContent="Sending\u2026";
-      fetch(f.action.replace("formsubmit.co/","formsubmit.co/ajax/"),{method:"POST",headers:{"Accept":"application/json"},body:fd})
-        .then(function(r){return r.json()})
-        .then(function(d){
-          if(String(d.success)!=="true") throw new Error(d.message||"Not sent");
-          var t=sec.querySelector(".wl-done span"); if(t) t.textContent="Thanks for applying. We\u2019ve emailed your parent or guardian a copy of your answers to approve. Once they do, we\u2019ll be in touch.";
-          sec.classList.add("sent"); f.reset(); syncParent(); syncAbn(); btn.disabled=false; btn.textContent=label;
-          sec.scrollIntoView({behavior:"smooth",block:"start"});
-        })
-        .catch(function(x){ console.warn("Form:",x); fail(); });
+      HTMLFormElement.prototype.submit.call(f);
     }
     function fail(t,el){ err.textContent=t||msg; err.hidden=false; btn.disabled=false; btn.textContent=label; (el||err).scrollIntoView({behavior:"smooth",block:"center"}); }
     f.addEventListener("submit",function(e){
