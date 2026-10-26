@@ -93,6 +93,9 @@ label.tick input:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='
   rows.forEach(function(r){ if(!r[1]) return; var dt=document.createElement("dt"); dt.textContent=r[0]; var dd=document.createElement("dd"); dd.textContent=r[1]; dl.appendChild(dt); dl.appendChild(dd); });
   var f=document.getElementById("cf"), err=document.getElementById("err");
   f.elements["Parent name"].value=d.pn||""; f.elements["Parent mobile"].value=d.pm||"";
+  var pm=f.elements["Parent mobile"]; pm.placeholder="04xx xxx xxx"; pm.maxLength=14;
+  function chkM(){ var v=pm.value.replace(/[\s()-]/g,""); pm.setCustomValidity(/^04\d{8}$/.test(v)?"":"Please enter a 10-digit mobile number starting with 04."); }
+  pm.addEventListener("input",chkM); chkM();
   var btns=f.querySelectorAll("button");
   btns.forEach(function(b){ b.addEventListener("click",function(){
     var dec=b.dataset.d; err.hidden=true;
