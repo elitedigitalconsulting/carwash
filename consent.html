@@ -46,7 +46,9 @@ label.tick input:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='
 .btn.yes{background:var(--green);color:#FFFFFF}.btn.no{background:transparent;color:var(--ink)}
 .btn[disabled]{opacity:.6;cursor:wait}
 .msg{border-radius:14px;padding:18px 20px;font-weight:600;margin:20px 0}
-.msg.ok{background:#E3F4EF;color:#0E1726}.msg.err{background:#FDE2E2;color:#A0262A}
+.msg.ok{background:#E3F4EF;color:#0E1726}
+.ferr{color:#A0262A;font-weight:600;font-size:13px}
+input.bad{border-color:#A0262A}.msg.err{background:#FDE2E2;color:#A0262A}
 [hidden]{display:none!important}
 @media (max-width:520px){.sum{grid-template-columns:1fr}.sum dt{margin-top:6px}}
 </style>
@@ -93,12 +95,16 @@ label.tick input:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='
   rows.forEach(function(r){ if(!r[1]) return; var dt=document.createElement("dt"); dt.textContent=r[0]; var dd=document.createElement("dd"); dd.textContent=r[1]; dl.appendChild(dt); dl.appendChild(dd); });
   var f=document.getElementById("cf"), err=document.getElementById("err");
   f.elements["Parent name"].value=d.pn||""; f.elements["Parent mobile"].value=d.pm||"";
-  var pm=f.elements["Parent mobile"]; pm.placeholder="04xx xxx xxx"; pm.maxLength=14;
-  function chkM(){ var v=pm.value.replace(/[\s()-]/g,""); pm.setCustomValidity(/^04\d{8}$/.test(v)?"":"Please enter a 10-digit mobile number starting with 04."); }
-  pm.addEventListener("input",chkM); chkM();
+  var pm=f.elements["Parent mobile"]; pm.value=(pm.value||"").replace(/\D/g,"").slice(0,10); pm.maxLength=10; pm.setAttribute("inputmode","numeric"); pm.placeholder="e.g. 0412345678";
+  var pmErr=document.createElement("small"); pmErr.className="ferr"; pmErr.hidden=true; pmErr.textContent="Please enter a 10-digit mobile number starting with 04."; pm.insertAdjacentElement("afterend",pmErr);
+  function chkM(show){ var d=pm.value, bad=!/^04\d{8}$/.test(d), early=(d.length===1&&d!=="0")||(d.length>=2&&d.slice(0,2)!=="04");
+    pm.setCustomValidity(bad?pmErr.textContent:""); pmErr.hidden=!(bad&&(show||early)); pm.classList.toggle("bad",!pmErr.hidden); }
+  pm.addEventListener("input",function(){ var v=pm.value.replace(/\D/g,"").slice(0,10); if(v!==pm.value) pm.value=v; chkM(false); });
+  pm.addEventListener("blur",function(){ chkM(true); }); chkM(false);
   var btns=f.querySelectorAll("button");
   btns.forEach(function(b){ b.addEventListener("click",function(){
     var dec=b.dataset.d; err.hidden=true;
+    chkM(true);
     if(!f.checkValidity()){ f.reportValidity(); return; }
     if(dec==="APPROVED" && !document.getElementById("agree").checked){ err.textContent="Please tick the box to confirm you approve."; err.hidden=false; return; }
     var body={

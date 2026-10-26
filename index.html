@@ -179,6 +179,9 @@ details p{margin:0 0 16px;color:var(--ink-2);max-width:68ch}
 .wl input:focus,.wl select:focus,.wl textarea:focus{outline:3px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
 .wl .full{grid-column:1/-1}
 .wl [hidden]{display:none!important}
+.wl .ferr{color:#A0262A;font-weight:600;font-size:13px;line-height:1.35}
+.wl input.bad{border-color:#A0262A!important}
+#waitlist .wl .ferr{color:#FFE4E4}
 .wl-done{display:none;align-items:center;gap:16px;background:var(--sky);border-radius:16px;padding:24px}
 .wl-done b{display:block;font-size:22px;margin-bottom:4px}
 .wl-done svg{flex:none}
@@ -594,9 +597,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
     if(abn){ abn.addEventListener("change",syncAbn); abnIn.addEventListener("input",checkAbn); syncAbn(); }
     var MOB="Please enter a 10-digit mobile number starting with 04.";
     f.querySelectorAll('input[type="tel"]').forEach(function(t){
-      t._chk=function(){ var d=t.value.replace(/[\s()-]/g,""); t.setCustomValidity(!t.disabled && t.value.trim() && !/^04\d{8}$/.test(d) ? MOB : ""); };
-      if(!t.placeholder) t.placeholder="04xx xxx xxx"; t.maxLength=14;
-      t.addEventListener("input",t._chk); t.addEventListener("blur",t._chk); t._chk();
+      t.maxLength=10; t.setAttribute("inputmode","numeric"); t.placeholder="e.g. 0412345678";
+      var m=document.createElement("small"); m.className="ferr"; m.hidden=true; m.textContent=MOB; t.insertAdjacentElement("afterend",m);
+      t._chk=function(show){ var d=t.value, bad=!t.disabled && d!=="" && !/^04\d{8}$/.test(d);
+        var early=(d.length===1 && d!=="0")||(d.length>=2 && d.slice(0,2)!=="04");
+        t.setCustomValidity(bad?MOB:""); m.hidden=!(bad && (show||early)); t.classList.toggle("bad",!m.hidden); };
+      t.addEventListener("input",function(){ var v=t.value.replace(/\D/g,"").slice(0,10); if(v!==t.value) t.value=v; t._chk(false); });
+      t.addEventListener("blur",function(){ t._chk(true); });
+      t._chk(false);
     });
 
     function b64(o){ return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
@@ -628,7 +636,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
       e.preventDefault();
       if(f.elements._honey && f.elements._honey.value) return;
       err.hidden=true;
-      f.querySelectorAll('input[type="tel"]').forEach(function(t){ if(t._chk) t._chk(); });
+      f.querySelectorAll('input[type="tel"]').forEach(function(t){ if(t._chk) t._chk(true); });
       if(!f.checkValidity()){ f.reportValidity(); return; }
       var bad=null;
       f.querySelectorAll("fieldset.chk").forEach(function(g){
