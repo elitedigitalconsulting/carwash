@@ -1,0 +1,390 @@
+{
+  "fixed": {
+    "style": "Photorealistic training video, natural documentary style, shot on a modern cinema camera, soft overcast daylight with no harsh reflections, realistic physics and hand movements, steady smooth camera, 16:9, no text or captions in frame, no music.",
+    "car": "A clean-lined white 2024 Mercedes-Benz C-Class sedan (W206), polar white gloss paint, black panoramic glass roof, 18-inch five-twin-spoke silver alloy wheels, right-hand drive Australian model, plain white number plates with no readable text, parked on a light-grey concrete residential driveway.",
+    "washer": "A professional mobile car washer, a woman in her late twenties with dark hair tied back in a low bun, wearing a plain dark green polo shirt with no logo, black work trousers, black closed-toe work shoes and black nitrile gloves. Calm, careful, unhurried movements.",
+    "setting": "Quiet leafy suburban street on Sydney's Northern Beaches, single-storey brick house with a garden behind the driveway, mid-morning, overcast sky."
+  },
+  "scenes": [
+    {
+      "id": "A0",
+      "module": "Module A: Introduction (≈ 45 s)",
+      "title": "Title card",
+      "type": "card",
+      "setting": false,
+      "prompt": null,
+      "vo": "",
+      "caption": "Sparqle Washer Training: The Waterless Wash and Protecting Yourself From Damage Claims"
+    },
+    {
+      "id": "A1",
+      "module": "Module A: Introduction (≈ 45 s)",
+      "title": "Hero orbit, before",
+      "type": "clip",
+      "setting": true,
+      "prompt": "The car is lightly dusty with water spots and road grime on the lower panels. Slow 360-degree orbiting camera move around the whole car at waist height, starting at the front and ending at the front. Nobody in shot.",
+      "vo": "This is the car we'll be washing today, a white 2024 Mercedes C-Class. White cars show every mark, so they're the best car to learn on.",
+      "caption": "Today's car: 2024 Mercedes-Benz C-Class, Polar White"
+    },
+    {
+      "id": "A2",
+      "module": "Module A: Introduction (≈ 45 s)",
+      "title": "Arrival",
+      "type": "clip",
+      "setting": true,
+      "prompt": "The washer walks up the driveway carrying a black kit bag and sets it down on the grass beside the driveway, a few metres from the car. Wide shot, camera static.",
+      "vo": "Every job follows the same four steps: inspect, set up, wash, and inspect again. The two inspections protect you as much as the wash protects the car.",
+      "caption": "Inspect → Set up → Wash → Inspect again"
+    },
+    {
+      "id": "B1",
+      "module": "Module B: Before you touch the car, the inspection (≈ 2 min 30 s)",
+      "title": "Meeting the customer",
+      "type": "clip",
+      "setting": true,
+      "prompt": "The washer stands at the front of the car talking with a middle-aged male customer in casual clothes. She gestures toward the car and they walk along the side of the car together. Medium shot.",
+      "vo": "If the customer is home, do the walkaround with them. Ask if there's any damage you should know about, or any area they want extra care with.",
+      "caption": "Walk around WITH the customer if they're home"
+    },
+    {
+      "id": "B2",
+      "module": "Module B: Before you touch the car, the inspection (≈ 2 min 30 s)",
+      "title": "Photo walkaround, front",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer stands about three metres in front of the car holding a smartphone up in landscape orientation and taking a photo of the whole front of the car. Over-the-shoulder shot showing the phone screen framing the car.",
+      "vo": "Photograph the car from eight positions, always in the same order. Start at the front and get the whole car in the shot.",
+      "caption": "Photo 1 of 8: Front"
+    },
+    {
+      "id": "B3",
+      "module": "Module B: Before you touch the car, the inspection (≈ 2 min 30 s)",
+      "title": "Photo walkaround, corners and sides",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer walks slowly anticlockwise around the car, stopping at each corner and each side to take a landscape photo with her smartphone. Smooth tracking shot following her at a distance, showing the car from every angle.",
+      "vo": "Front corner, side, rear corner, rear, then the same down the other side. Corners at forty-five degrees, sides full length.",
+      "caption": "Front → corner → side → corner → rear → corner → side → corner"
+    },
+    {
+      "id": "B4",
+      "module": "Module B: Before you touch the car, the inspection (≈ 2 min 30 s)",
+      "title": "Wheels close-up",
+      "type": "clip",
+      "setting": false,
+      "prompt": "Close-up of the washer crouching beside the front-left alloy wheel, taking a close-up photo of the wheel rim with her smartphone. Camera at wheel height.",
+      "vo": "Then a close-up of every wheel. Kerb rash on alloy wheels is the number one thing customers say we caused, so these photos matter.",
+      "caption": "Photograph all 4 wheels close up"
+    },
+    {
+      "id": "B5",
+      "module": "Module B: Before you touch the car, the inspection (≈ 2 min 30 s)",
+      "title": "Damage example: kerb rash",
+      "type": "clip",
+      "setting": false,
+      "prompt": "Extreme close-up, macro detail of the outer lip of a silver alloy car wheel showing scraped, scuffed kerb rash damage with exposed bare metal, soft daylight. Static camera, slight slow push-in.",
+      "vo": "This is kerb rash: scrapes on the edge of the rim. Note it and photograph it before you start.",
+      "caption": "LOOK FOR: Kerb rash on wheel rims"
+    },
+    {
+      "id": "B6",
+      "module": "Module B: Before you touch the car, the inspection (≈ 2 min 30 s)",
+      "title": "Damage example: stone chips",
+      "type": "clip",
+      "setting": false,
+      "prompt": "Extreme close-up of the front edge of a white car bonnet showing several tiny stone chips in the paint, small dark specks. Slow sideways slide of the camera so the light catches them.",
+      "vo": "Stone chips on the bonnet and front bumper. On white paint they're small dark dots. Crouch down and look along the panel to spot them.",
+      "caption": "LOOK FOR: Stone chips (bonnet, bumper, mirrors)"
+    },
+    {
+      "id": "B7",
+      "module": "Module B: Before you touch the car, the inspection (≈ 2 min 30 s)",
+      "title": "Damage example: scratches and swirls",
+      "type": "clip",
+      "setting": false,
+      "prompt": "Close-up of a white car door panel in angled light showing fine circular swirl marks and one longer thin scratch. Camera moves slowly to show how the marks appear and disappear as the light angle changes.",
+      "vo": "Scratches and swirl marks. Look at each panel from an angle, not straight on, or you'll miss them.",
+      "caption": "LOOK FOR: Scratches and swirl marks (view panels at an angle)"
+    },
+    {
+      "id": "B8",
+      "module": "Module B: Before you touch the car, the inspection (≈ 2 min 30 s)",
+      "title": "Damage example: dents, glass, trim",
+      "type": "clip",
+      "setting": false,
+      "prompt": "Sequence of three slow close-ups on a white car: a small shallow dent on a rear door catching the light, a small chip in a windscreen, and a loose piece of black plastic trim at the edge of a bumper.",
+      "vo": "Also look for dents, windscreen chips and cracks, loose or broken trim, damaged mirrors, peeling paint or wrap, and bird droppings or sap that may have already marked the paint.",
+      "caption": "LOOK FOR: Dents · Glass chips · Loose trim · Mirrors · Peeling paint/wrap · Etched bird droppings"
+    },
+    {
+      "id": "B9",
+      "module": "Module B: Before you touch the car, the inspection (≈ 2 min 30 s)",
+      "title": "Recording and confirming",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer stands beside the car typing notes on her smartphone, then turns the phone to show the screen to the customer, who nods. Medium close-up.",
+      "vo": "Write down anything you found, with the photo, and show the customer. Get their OK in writing, even just a reply to a message, before you start.",
+      "caption": "Note it → show the customer → get their OK in writing"
+    },
+    {
+      "id": "B10",
+      "module": "Module B: Before you touch the car, the inspection (≈ 2 min 30 s)",
+      "title": "When to stop",
+      "type": "clip",
+      "setting": false,
+      "prompt": "Close-up of the lower door panel and sill of the car caked in thick dried mud and sand. Slow push-in.",
+      "vo": "If the car is caked in mud or sand, don't do a waterless wash. Wiping grit across paint will scratch it. Stop and contact Sparqle before going any further.",
+      "caption": "STOP if: heavy mud/sand · fresh paint · damage the customer disputes"
+    },
+    {
+      "id": "C1",
+      "module": "Module C: Setting up (≈ 40 s)",
+      "title": "Kit layout",
+      "type": "clip",
+      "setting": false,
+      "prompt": "Top-down overhead shot of a waterless car wash kit laid out neatly on a black mat on the driveway: two spray bottles, a glass cleaner bottle, a soft wheel brush, tyre dressing, a stack of folded microfibre cloths in four colours (blue, green, grey, yellow), and an empty mesh bag. The washer's gloved hands arrange the cloths into four piles by colour.",
+      "vo": "Lay out your kit. Bring more clean cloths than you think you'll need, at least twelve for a sedan. One colour each for paint, glass, wheels and interior, and they never swap jobs.",
+      "caption": "Blue = paint · Green = glass · Grey = wheels · Yellow = interior · Used cloths → mesh bag"
+    },
+    {
+      "id": "C2",
+      "module": "Module C: Setting up (≈ 40 s)",
+      "title": "Panel temperature check",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer lays the back of her gloved hand flat on the bonnet of the car to feel its temperature, then glances up at the sky. Close-up.",
+      "vo": "Check the paint isn't hot. Waterless product dries too fast on hot panels and leaves streaks. In summer, work in the shade or early in the day.",
+      "caption": "Panels hot? Move to shade or wait."
+    },
+    {
+      "id": "D1",
+      "module": "Module D: The wash (≈ 3 min)",
+      "title": "Folding the cloth",
+      "type": "clip",
+      "setting": false,
+      "prompt": "Close-up of the washer's gloved hands folding a blue microfibre cloth in half and then in half again into a neat square, then holding it flat on her palm.",
+      "vo": "Fold each cloth into quarters. That gives you eight clean faces. Use one face, then turn to a fresh one.",
+      "caption": "Fold in 4 = 8 clean faces"
+    },
+    {
+      "id": "D2",
+      "module": "Module D: The wash (≈ 3 min)",
+      "title": "Roof",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer stands on a small sturdy step stool beside the car, sprays waterless wash onto one section of the roof, then wipes in slow straight lines from front to back with a folded blue cloth. Medium shot from the side.",
+      "vo": "Always work from the top down: roof first, because it's usually the cleanest. Spray one section at a time and soak it well, so the product lifts the dirt.",
+      "caption": "Top to bottom · one section at a time"
+    },
+    {
+      "id": "D3",
+      "module": "Module D: The wash (≈ 3 min)",
+      "title": "Wipe-and-lift close-up",
+      "type": "clip",
+      "setting": false,
+      "prompt": "Macro close-up of a folded blue microfibre cloth gliding in one straight line across white glossy car paint with light pressure, lifting a thin film of dust, then lifting away from the surface. The paint behind it is clean and glossy.",
+      "vo": "Wipe in straight lines with light pressure, and lift the cloth at the end of each stroke. Never scrub in circles; that's what causes swirl marks.",
+      "caption": "Straight lines ✓  Circles ✗  Light pressure ✓"
+    },
+    {
+      "id": "D4",
+      "module": "Module D: The wash (≈ 3 min)",
+      "title": "Buffing",
+      "type": "clip",
+      "setting": false,
+      "prompt": "Close-up of the washer using a second, dry blue microfibre cloth to gently buff a section of white car roof to a high gloss, using straight strokes.",
+      "vo": "Follow straight away with a dry cloth to buff off what's left. Then move on to the next section.",
+      "caption": "Wet cloth wipes → dry cloth buffs"
+    },
+    {
+      "id": "D5",
+      "module": "Module D: The wash (≈ 3 min)",
+      "title": "Bonnet",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer sprays and wipes the bonnet of the car in straight lines from the windscreen toward the front, working half the bonnet at a time. Camera at a low front-three-quarter angle.",
+      "vo": "The bonnet next. Work half at a time. Be gentle around the star badge and the front grille: there are sensors behind them.",
+      "caption": "Gentle around badges, grille and sensors"
+    },
+    {
+      "id": "D6",
+      "module": "Module D: The wash (≈ 3 min)",
+      "title": "Boot and rear",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer wipes the boot lid and the rear of the car in straight horizontal lines, carefully working around the badges and the reversing camera. Medium shot from behind the car.",
+      "vo": "Boot lid and rear. Just a light wipe over the reversing camera and the parking sensors. Never press hard on them.",
+      "caption": "Cameras and parking sensors: light wipe only"
+    },
+    {
+      "id": "D7",
+      "module": "Module D: The wash (≈ 3 min)",
+      "title": "Upper sides",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer wipes the upper half of the driver's-side doors and front guard in long straight horizontal strokes, then turns her cloth to a clean face. Tracking shot moving slowly along the side of the car.",
+      "vo": "Then the upper half of the sides, going round the car. Check your cloth after every panel. If it's grey, turn it to a clean face.",
+      "caption": "Check the cloth after every panel"
+    },
+    {
+      "id": "D8",
+      "module": "Module D: The wash (≈ 3 min)",
+      "title": "Mirrors",
+      "type": "clip",
+      "setting": false,
+      "prompt": "Close-up of the washer gently cleaning the body-coloured housing of the side mirror with a folded blue cloth, supporting the mirror with her other hand so it does not move.",
+      "vo": "Support the mirror with your other hand while you clean it. Never force a mirror to fold.",
+      "caption": "Support mirrors, never force them"
+    },
+    {
+      "id": "D9",
+      "module": "Module D: The wash (≈ 3 min)",
+      "title": "Lower panels last",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer kneels on a foam knee pad and wipes the lower door panels and side skirt of the car with a fresh blue cloth, with generous spray, in straight horizontal lines. Camera low, side-on.",
+      "vo": "The lower panels and bumpers are the dirtiest part of the car, so do them last with fresh cloths and plenty of product. This is where most scratches happen, so take your time here.",
+      "caption": "Lower panels last · fresh cloths · extra product"
+    },
+    {
+      "id": "D10",
+      "module": "Module D: The wash (≈ 3 min)",
+      "title": "Dropped cloth rule",
+      "type": "clip",
+      "setting": false,
+      "prompt": "A blue microfibre cloth slips from the washer's hand and falls onto the concrete driveway. She picks it up and immediately puts it straight into an open mesh laundry bag, then takes a fresh cloth from the stack. Medium close-up.",
+      "vo": "If you drop a cloth, it's finished. It goes straight in the bag. One bit of grit from the ground can scratch a whole door.",
+      "caption": "Dropped cloth = into the bag. Never back on the paint."
+    },
+    {
+      "id": "E1",
+      "module": "Module E: Wheels, tyres and glass (≈ 1 min 15 s)",
+      "title": "Wheels",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer, wearing black nitrile gloves, sprays a silver alloy wheel and cleans between the spokes with a soft-bristled wheel brush, then wipes the face of the rim with a grey microfibre cloth. Close-up at wheel height.",
+      "vo": "Wheels get their own grey cloths and the brush. Wheel cloths never touch paint or glass, even after they've been washed.",
+      "caption": "Grey cloths = wheels only"
+    },
+    {
+      "id": "E2",
+      "module": "Module E: Wheels, tyres and glass (≈ 1 min 15 s)",
+      "title": "Tyre dressing",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer applies tyre dressing with a foam applicator pad to the sidewall of the tyre, keeping it off the alloy rim. Close-up.",
+      "vo": "Tyre dressing goes on the rubber only. Wipe off anything that gets on the rim or paint straight away.",
+      "caption": "Dressing on rubber only"
+    },
+    {
+      "id": "E3",
+      "module": "Module E: Wheels, tyres and glass (≈ 1 min 15 s)",
+      "title": "Glass",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer sprays glass cleaner onto a folded green microfibre cloth, not onto the car, then wipes the windscreen in straight vertical strokes, then buffs with a dry green cloth. Camera from the front passenger side.",
+      "vo": "For glass, spray onto the cloth, not the car, so you don't get overspray on the paint. Wipe one way, then buff the other way so you can see which side any streaks are on.",
+      "caption": "Spray the cloth, not the glass"
+    },
+    {
+      "id": "E4",
+      "module": "Module E: Wheels, tyres and glass (≈ 1 min 15 s)",
+      "title": "Wiper blades",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer gently lifts a windscreen wiper arm a few centimetres, wipes the rubber blade with a green cloth, then lowers the arm slowly back onto the glass by hand. Close-up.",
+      "vo": "Lift wipers gently and always lower them back down by hand. Never let one snap back onto the windscreen, because that can crack the glass.",
+      "caption": "Lower wipers by hand"
+    },
+    {
+      "id": "F1",
+      "module": "Module F: If something happens during the job (≈ 1 min)",
+      "title": "Finding damage mid-wash",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer wipes a lower door panel and stops, leaning in to look closely at a small scratch that has become visible on the clean white paint. She steps back, takes out her smartphone and photographs it close-up. Medium close-up.",
+      "vo": "Sometimes cleaning shows up damage that dirt was hiding. Stop and photograph it straight away, with something in the shot that shows where on the car it is.",
+      "caption": "Found something? STOP → photograph → tell the customer"
+    },
+    {
+      "id": "F2",
+      "module": "Module F: If something happens during the job (≈ 1 min)",
+      "title": "Telling the customer calmly",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer shows her smartphone screen to the customer beside the car, pointing to the lower door. They talk calmly. Medium shot.",
+      "vo": "Tell the customer before you carry on. Show them your before-photo next to the new one.",
+      "caption": "Show before-photo vs. now"
+    },
+    {
+      "id": "F3",
+      "module": "Module F: If something happens during the job (≈ 1 min)",
+      "title": "If the customer says you caused it",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer listens calmly with a neutral, polite expression while the customer points at the side of the car. She nods, then types on her phone. Medium shot, no aggression.",
+      "vo": "If a customer says you caused damage: stay calm and don't argue. Don't admit fault, and don't promise to pay or fix anything. Take photos, write down what was said, and contact Sparqle straight away. We'll handle it from there, using your photos.",
+      "caption": "Stay calm · Don't argue · Don't admit fault or promise payment · Photograph · Contact Sparqle NOW"
+    },
+    {
+      "id": "F4",
+      "module": "Module F: If something happens during the job (≈ 1 min)",
+      "title": "If you actually cause damage",
+      "type": "clip",
+      "setting": false,
+      "prompt": "Close-up of the washer's face, concerned but composed, as she looks at the car, then picks up her phone to make a call.",
+      "vo": "If you do cause damage, it happens to everyone eventually. Stop work, photograph it, tell the customer honestly what happened, and call Sparqle before you leave. Reporting it straight away is always the right call.",
+      "caption": "Accident? Stop · Photograph · Tell the customer · Call Sparqle before leaving"
+    },
+    {
+      "id": "G1",
+      "module": "Module G: Final inspection and handover (≈ 1 min 15 s)",
+      "title": "Final walkaround photos",
+      "type": "clip",
+      "setting": true,
+      "prompt": "The car is now spotless and glossy. The washer walks anticlockwise around the car taking a landscape photo with her smartphone from each corner and each side. Smooth tracking shot.",
+      "vo": "When you're finished, do the same eight-point photo walkaround again, plus the four wheels. Your before and after photos together are your proof.",
+      "caption": "After-photos: same 8 positions + 4 wheels"
+    },
+    {
+      "id": "G2",
+      "module": "Module G: Final inspection and handover (≈ 1 min 15 s)",
+      "title": "Final check",
+      "type": "clip",
+      "setting": false,
+      "prompt": "The washer crouches and looks along the side of the now-clean white car at a low angle, checking for streaks, then buffs one small spot with a dry blue cloth. Close-up.",
+      "vo": "Look along every panel at a low angle for streaks or missed spots, especially around badges, door handles and the bottom edges of the glass.",
+      "caption": "Check for streaks: badges · handles · glass edges"
+    },
+    {
+      "id": "G3",
+      "module": "Module G: Final inspection and handover (≈ 1 min 15 s)",
+      "title": "Handover",
+      "type": "clip",
+      "setting": true,
+      "prompt": "The washer and the customer walk around the clean car together; the customer smiles and nods. The washer packs her kit bag and leaves the driveway tidy. Wide shot.",
+      "vo": "Walk the customer around the finished car, pack up, and leave the driveway exactly as you found it.",
+      "caption": "Walk the customer round · Pack up · Leave it tidy"
+    },
+    {
+      "id": "G4",
+      "module": "Module G: Final inspection and handover (≈ 1 min 15 s)",
+      "title": "Hero orbit, after",
+      "type": "clip",
+      "setting": true,
+      "prompt": "The car is spotless with deep gloss on the white paint, clean glass and dressed black tyres. Slow 360-degree orbiting camera move around the whole car at waist height. Nobody in shot.",
+      "vo": "That's a Sparqle wash. Inspect, set up, wash, inspect again, every time.",
+      "caption": "Inspect → Set up → Wash → Inspect again"
+    },
+    {
+      "id": "G5",
+      "module": "Module G: Final inspection and handover (≈ 1 min 15 s)",
+      "title": "End card",
+      "type": "card",
+      "setting": false,
+      "prompt": null,
+      "vo": "",
+      "caption": "Questions? hello@sparqle.com.au"
+    }
+  ]
+}
