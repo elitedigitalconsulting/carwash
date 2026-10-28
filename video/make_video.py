@@ -288,7 +288,8 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     return f
 
 
-ENC = ["-c:v", "libx264", "-preset", "medium", "-crf", "20", "-pix_fmt", "yuv420p", "-r", str(FPS),
+# VIDEO_PRESET=ultrafast makes a quick draft; the default is for the final video.
+ENC = ["-c:v", "libx264", "-preset", os.environ.get("VIDEO_PRESET", "medium"), "-crf", "20", "-pix_fmt", "yuv420p", "-r", str(FPS),
        "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-ac", "2", "-movflags", "+faststart"]
 
 
@@ -312,6 +313,8 @@ def build_card(name, title, sub, dur, vo=None):
 def build_clip(s, clips, vo):
     """Plays the chosen takes back to back, slows them slightly or holds the last frame if the voiceover runs longer."""
     out = path("segments", s["id"] + ".mp4")
+    if os.environ.get("VIDEO_REUSE") and os.path.exists(out):
+        return out  # keep segments from an earlier run that was cut short
     vo_d = duration(vo) if vo else 0
     clip_d = sum(duration(c) for c in clips)
     target = max(clip_d, vo_d + 0.9)
