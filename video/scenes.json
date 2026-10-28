@@ -2,7 +2,7 @@
   "fixed": {
     "style": "Photorealistic training video, natural documentary style, shot on a modern cinema camera, soft overcast daylight with no harsh reflections, realistic physics and hand movements, steady smooth camera, 16:9, no text or captions in frame, no music.",
     "car": "A clean-lined white 2024 Mercedes-Benz C-Class sedan (W206), polar white gloss paint, black panoramic glass roof, 18-inch five-twin-spoke silver alloy wheels, right-hand drive Australian model, plain white number plates with no readable text, parked on a light-grey concrete residential driveway.",
-    "washer": "A professional mobile car washer, a woman in her late twenties with dark hair tied back in a low bun, wearing a plain dark green polo shirt with no logo, black work trousers, black closed-toe work shoes and black nitrile gloves. Calm, careful, unhurried movements.",
+    "washer": "A professional mobile car washer, a man in his early thirties with short dark hair and a neatly trimmed beard, wearing a plain dark green polo shirt with no logo, black work trousers, black closed-toe work shoes and black nitrile gloves. Calm, careful, unhurried movements.",
     "setting": "Quiet leafy suburban street on Sydney's Northern Beaches, single-storey brick house with a garden behind the driveway, mid-morning, overcast sky."
   },
   "scenes": [
@@ -42,7 +42,7 @@
       "title": "Meeting the customer",
       "type": "clip",
       "setting": true,
-      "prompt": "The washer stands at the front of the car talking with a middle-aged male customer in casual clothes. She gestures toward the car and they walk along the side of the car together. Medium shot.",
+      "prompt": "The washer stands at the front of the car talking with a female customer in her forties in casual clothes. He gestures toward the car and they walk along the side of the car together. Medium shot.",
       "vo": "If the customer is home, do the walkaround with them. Ask if there's any damage you should know about, or any area they want extra care with.",
       "caption": "Walk around WITH the customer if they're home"
     },
@@ -62,7 +62,7 @@
       "title": "Photo walkaround, corners and sides",
       "type": "clip",
       "setting": false,
-      "prompt": "The washer walks slowly anticlockwise around the car, stopping at each corner and each side to take a landscape photo with her smartphone. Smooth tracking shot following her at a distance, showing the car from every angle.",
+      "prompt": "The washer walks slowly anticlockwise around the car, stopping at each corner and each side to take a landscape photo with his smartphone. Smooth tracking shot following his at a distance, showing the car from every angle.",
       "vo": "Front corner, side, rear corner, rear, then the same down the other side. Corners at forty-five degrees, sides full length.",
       "caption": "Front → corner → side → corner → rear → corner → side → corner"
     },
@@ -72,7 +72,7 @@
       "title": "Wheels close-up",
       "type": "clip",
       "setting": false,
-      "prompt": "Close-up of the washer crouching beside the front-left alloy wheel, taking a close-up photo of the wheel rim with her smartphone. Camera at wheel height.",
+      "prompt": "Close-up of the washer crouching beside the front-left alloy wheel, taking a close-up photo of the wheel rim with his smartphone. Camera at wheel height.",
       "vo": "Then a close-up of every wheel. Kerb rash on alloy wheels is the number one thing customers say we caused, so these photos matter.",
       "caption": "Photograph all 4 wheels close up"
     },
@@ -122,7 +122,7 @@
       "title": "Recording and confirming",
       "type": "clip",
       "setting": false,
-      "prompt": "The washer stands beside the car typing notes on her smartphone, then turns the phone to show the screen to the customer, who nods. Medium close-up.",
+      "prompt": "The washer stands beside the car typing notes on his smartphone, then turns the phone to show the screen to the customer, who nods. Medium close-up.",
       "vo": "Write down anything you found, with the photo, and show the customer. Get their OK in writing, even just a reply to a message, before you start.",
       "caption": "Note it → show the customer → get their OK in writing"
     },
@@ -152,7 +152,7 @@
       "title": "Panel temperature check",
       "type": "clip",
       "setting": false,
-      "prompt": "The washer lays the back of her gloved hand flat on the bonnet of the car to feel its temperature, then glances up at the sky. Close-up.",
+      "prompt": "The washer lays the back of his gloved hand flat on the bonnet of the car to feel its temperature, then glances up at the sky. Close-up.",
       "vo": "Check the paint isn't hot. Waterless product dries too fast on hot panels and leaves streaks. In summer, work in the shade or early in the day.",
       "caption": "Panels hot? Move to shade or wait."
     },
@@ -162,7 +162,7 @@
       "title": "Folding the cloth",
       "type": "clip",
       "setting": false,
-      "prompt": "Close-up of the washer's gloved hands folding a blue microfibre cloth in half and then in half again into a neat square, then holding it flat on her palm.",
+      "prompt": "Close-up of the washer's gloved hands folding a blue microfibre cloth in half and then in half again into a neat square, then holding it flat on his palm.",
       "vo": "Fold each cloth into quarters. That gives you eight clean faces. Use one face, then turn to a fresh one.",
       "caption": "Fold in 4 = 8 clean faces"
     },
@@ -222,7 +222,7 @@
       "title": "Upper sides",
       "type": "clip",
       "setting": false,
-      "prompt": "The washer wipes the upper half of the driver's-side doors and front guard in long straight horizontal strokes, then turns her cloth to a clean face. Tracking shot moving slowly along the side of the car.",
+      "prompt": "The washer wipes the upper half of the driver's-side doors and front guard in long straight horizontal strokes, then turns his cloth to a clean face. Tracking shot moving slowly along the side of the car.",
       "vo": "Then the upper half of the sides, going round the car. Check your cloth after every panel. If it's grey, turn it to a clean face.",
       "caption": "Check the cloth after every panel"
     },
@@ -232,7 +232,7 @@
       "title": "Mirrors",
       "type": "clip",
       "setting": false,
-      "prompt": "Close-up of the washer gently cleaning the body-coloured housing of the side mirror with a folded blue cloth, supporting the mirror with her other hand so it does not move.",
+      "prompt": "Close-up of the washer gently cleaning the body-coloured housing of the side mirror with a folded blue cloth, supporting the mirror with his other hand so it does not move.",
       "vo": "Support the mirror with your other hand while you clean it. Never force a mirror to fold.",
       "caption": "Support mirrors, never force them"
     },
@@ -252,7 +252,7 @@
       "title": "Dropped cloth rule",
       "type": "clip",
       "setting": false,
-      "prompt": "A blue microfibre cloth slips from the washer's hand and falls onto the concrete driveway. She picks it up and immediately puts it straight into an open mesh laundry bag, then takes a fresh cloth from the stack. Medium close-up.",
+      "prompt": "A blue microfibre cloth slips from the washer's hand and falls onto the concrete driveway. He picks it up and immediately puts it straight into an open mesh laundry bag, then takes a fresh cloth from the stack. Medium close-up.",
       "vo": "If you drop a cloth, it's finished. It goes straight in the bag. One bit of grit from the ground can scratch a whole door.",
       "caption": "Dropped cloth = into the bag. Never back on the paint."
     },
@@ -302,7 +302,7 @@
       "title": "Finding damage mid-wash",
       "type": "clip",
       "setting": false,
-      "prompt": "The washer wipes a lower door panel and stops, leaning in to look closely at a small scratch that has become visible on the clean white paint. She steps back, takes out her smartphone and photographs it close-up. Medium close-up.",
+      "prompt": "The washer wipes a lower door panel and stops, leaning in to look closely at a small scratch that has become visible on the clean white paint. He steps back, takes out his smartphone and photographs it close-up. Medium close-up.",
       "vo": "Sometimes cleaning shows up damage that dirt was hiding. Stop and photograph it straight away, with something in the shot that shows where on the car it is.",
       "caption": "Found something? STOP → photograph → tell the customer"
     },
@@ -312,7 +312,7 @@
       "title": "Telling the customer calmly",
       "type": "clip",
       "setting": false,
-      "prompt": "The washer shows her smartphone screen to the customer beside the car, pointing to the lower door. They talk calmly. Medium shot.",
+      "prompt": "The washer shows his smartphone screen to the customer beside the car, pointing to the lower door. They talk calmly. Medium shot.",
       "vo": "Tell the customer before you carry on. Show them your before-photo next to the new one.",
       "caption": "Show before-photo vs. now"
     },
@@ -322,7 +322,7 @@
       "title": "If the customer says you caused it",
       "type": "clip",
       "setting": false,
-      "prompt": "The washer listens calmly with a neutral, polite expression while the customer points at the side of the car. She nods, then types on her phone. Medium shot, no aggression.",
+      "prompt": "The washer listens calmly with a neutral, polite expression while the customer points at the side of the car. He nods, then types on his phone. Medium shot, no aggression.",
       "vo": "If a customer says you caused damage: stay calm and don't argue. Don't admit fault, and don't promise to pay or fix anything. Take photos, write down what was said, and contact Sparqle straight away. We'll handle it from there, using your photos.",
       "caption": "Stay calm · Don't argue · Don't admit fault or promise payment · Photograph · Contact Sparqle NOW"
     },
@@ -332,7 +332,7 @@
       "title": "If you actually cause damage",
       "type": "clip",
       "setting": false,
-      "prompt": "Close-up of the washer's face, concerned but composed, as she looks at the car, then picks up her phone to make a call.",
+      "prompt": "Close-up of the washer's face, concerned but composed, as he looks at the car, then picks up his phone to make a call.",
       "vo": "If you do cause damage, it happens to everyone eventually. Stop work, photograph it, tell the customer honestly what happened, and call Sparqle before you leave. Reporting it straight away is always the right call.",
       "caption": "Accident? Stop · Photograph · Tell the customer · Call Sparqle before leaving"
     },
@@ -342,7 +342,7 @@
       "title": "Final walkaround photos",
       "type": "clip",
       "setting": true,
-      "prompt": "The car is now spotless and glossy. The washer walks anticlockwise around the car taking a landscape photo with her smartphone from each corner and each side. Smooth tracking shot.",
+      "prompt": "The car is now spotless and glossy. The washer walks anticlockwise around the car taking a landscape photo with his smartphone from each corner and each side. Smooth tracking shot.",
       "vo": "When you're finished, do the same eight-point photo walkaround again, plus the four wheels. Your before and after photos together are your proof.",
       "caption": "After-photos: same 8 positions + 4 wheels"
     },
@@ -362,7 +362,7 @@
       "title": "Handover",
       "type": "clip",
       "setting": true,
-      "prompt": "The washer and the customer walk around the clean car together; the customer smiles and nods. The washer packs her kit bag and leaves the driveway tidy. Wide shot.",
+      "prompt": "The washer and the customer walk around the clean car together; the customer smiles and nods. The washer packs his kit bag and leaves the driveway tidy. Wide shot.",
       "vo": "Walk the customer around the finished car, pack up, and leave the driveway exactly as you found it.",
       "caption": "Walk the customer round · Pack up · Leave it tidy"
     },
