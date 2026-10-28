@@ -142,7 +142,8 @@ def clips_and_voice():
             return
         board = os.path.join(OUT, "boards", s["id"] + ".png")
         # A slow push-in on the still panel, 8 seconds, like a real clip's length.
-        run(["ffmpeg", "-y", "-v", "error", "-loop", "1", "-t", "8", "-i", board, "-vf",
+        # One still frame in; zoompan turns it into 240 frames, which is 8 seconds at 30 fps.
+        run(["ffmpeg", "-y", "-v", "error", "-i", board, "-vf",
              "zoompan=z='1+0.03*on/240':d=240:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1280x720:fps=30,format=yuv420p",
              "-c:v", "libx264", "-preset", "ultrafast", "-tune", "stillimage", "-crf", "23", clip])
 
