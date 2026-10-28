@@ -21,7 +21,7 @@ Everything goes in video/out/ (not committed). Re-running skips work already don
 import base64, json, os, re, subprocess, sys, time, urllib.error, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "out")
+OUT = os.environ.get("VIDEO_OUT") or os.path.join(HERE, "out")  # the prototype build points this elsewhere
 API = "https://generativelanguage.googleapis.com/v1beta"
 W, H, FPS = 1280, 720, 30
 GREEN = "0x0E7C66"
@@ -388,4 +388,5 @@ if __name__ == "__main__":
     elif a[0] == "selftest":
         OUT = os.path.join(HERE, "out-selftest")
         cmd_build(placeholder=True)
+    elif a[0] == "build-prototype": cmd_build()  # same as build; VIDEO_OUT picks the prototype folder
     else: print(__doc__)
