@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Washer login · Sparqle</title>
+<meta name="robots" content="noindex">
+<script src="../switch.js"></script>
+<script src="config.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E1726; --ink-2:#3A4557; --paper:#FFFFFF; --wash:#F2F5FA; --sky:#E3F4EF;
+  --green:#0E7C66; --green-ink:#0B5E4D; --on-green:#FFFFFF; --line:#D5DBE5;
+  --ok:#0E6B57; --ok-bg:#E3F4EF; --no:#A0262A; --no-bg:#FBEAEA; --warn:#8A5A00; --warn-bg:#FFF4DC;
+  --font:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --radius:14px;
+  color-scheme:light;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#EEF2F8; --ink-2:#B4BFCF; --paper:#0B1220; --wash:#121B2D; --sky:#12332C;
+    --green:#14866E; --green-ink:#7FE3C4; --on-green:#FFFFFF; --line:#26324A;
+    --ok:#5BD1A9; --ok-bg:#0F2E27; --no:#FF8A8F; --no-bg:#3A1518; --warn:#F2C46B; --warn-bg:#33270C;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#EEF2F8; --ink-2:#B4BFCF; --paper:#0B1220; --wash:#121B2D; --sky:#12332C;
+  --green:#14866E; --green-ink:#7FE3C4; --on-green:#FFFFFF; --line:#26324A;
+  --ok:#5BD1A9; --ok-bg:#0F2E27; --no:#FF8A8F; --no-bg:#3A1518; --warn:#F2C46B; --warn-bg:#33270C;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+img{max-width:100%}
+:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:6px}
+a{color:var(--green-ink)}
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.col{max-width:760px;margin-inline:auto}
+.col.wide{max-width:1040px}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+.top .col{display:flex;align-items:center;justify-content:space-between;gap:8px 12px;min-height:60px;flex-wrap:wrap;padding-block:8px}
+.brand{font-weight:900;font-stretch:118%;font-size:20px;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+.brand span{font-weight:600;font-stretch:100%;font-size:15px;color:var(--ink-2);margin-left:8px;letter-spacing:0}
+.account{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tab{font:inherit;font-size:15px;font-weight:700;border:2px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:4px 14px;cursor:pointer}
+.tab[aria-current="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.linkbtn{font:inherit;font-size:15px;font-weight:600;background:none;border:0;color:var(--green-ink);text-decoration:underline;cursor:pointer;padding:4px}
+
+/* rail */
+.rail{display:flex;flex-wrap:wrap;gap:6px;padding:16px 0 0;list-style:none;margin:0}
+.rail button{font:inherit;font-size:14px;font-weight:700;min-width:40px;height:40px;padding:0 12px;border-radius:999px;border:2px solid var(--line);background:var(--paper);color:var(--ink-2);cursor:pointer;font-variant-numeric:tabular-nums}
+.rail button.done{border-color:var(--green);color:var(--green-ink)}
+.rail button[aria-current="step"]{background:var(--green);border-color:var(--green);color:var(--on-green)}
+
+main{padding-block:28px 72px}
+.eyebrow{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--green-ink);margin:0 0 6px}
+h1{font-size:clamp(38px,7vw,64px);line-height:.98;letter-spacing:-.02em;font-weight:900;font-stretch:118%;margin:0 0 14px;text-wrap:balance}
+h2{font-size:clamp(28px,4.6vw,40px);line-height:1.05;letter-spacing:-.015em;font-weight:900;font-stretch:112%;margin:0 0 12px;text-wrap:balance}
+h3{font-size:20px;line-height:1.25;margin:32px 0 8px;font-weight:800;text-wrap:balance}
+p{margin:0 0 14px;max-width:65ch}
+.lede{font-size:19px;color:var(--ink-2)}
+.muted{color:var(--ink-2)}
+ul.points{margin:0 0 14px;padding-left:22px;max-width:65ch}
+ul.points li{margin:6px 0}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;border-radius:12px;font:inherit;font-weight:700;font-size:17px;border:2px solid transparent;cursor:pointer;text-decoration:none}
+.btn-primary{background:var(--green);color:var(--on-green)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.btn-ghost{border-color:var(--line);background:transparent;color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink-2)}
+.btn-sm{min-height:38px;padding:0 14px;font-size:15px;border-radius:10px}
+.btn-danger{border-color:var(--line);background:transparent;color:var(--no)}
+.nav-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:40px;padding-top:20px;border-top:1px solid var(--line)}
+
+/* forms */
+.auth{max-width:440px}
+.switcher{display:flex;gap:6px;margin:0 0 24px}
+.form{display:flex;flex-direction:column;gap:18px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-weight:700}
+.field input{font:inherit;padding:12px 14px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);width:100%}
+.field input:focus{border-color:var(--green);outline:none}
+.field small{color:var(--ink-2);font-size:14px}
+.check{display:flex;gap:8px;align-items:center;font-size:15px;color:var(--ink-2)}
+.check input{width:18px;height:18px;accent-color:var(--green)}
+.msg{border-radius:12px;padding:12px 16px;font-size:16px;max-width:65ch}
+.msg.err{background:var(--no-bg);color:var(--ink)}
+.msg.err b{color:var(--no)}
+.msg.info{background:var(--sky)}
+.fine{font-size:14px;color:var(--ink-2)}
+
+/* course contents */
+.contents{list-style:none;margin:20px 0 28px;padding:0;border-top:1px solid var(--line)}
+.contents li{border-bottom:1px solid var(--line)}
+.contents button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;width:100%;padding:14px 4px;cursor:pointer}
+.contents button:focus-visible{outline:3px solid var(--green);outline-offset:-3px}
+.contents .n{font-weight:900;font-stretch:118%;font-size:22px;color:var(--green-ink);font-variant-numeric:tabular-nums}
+.contents .t{font-weight:700;min-width:0}
+.contents .t small{display:block;font-weight:400;color:var(--ink-2);font-size:15px}
+.contents .s{font-size:13px;font-weight:700;color:var(--ink-2)}
+.contents .s.done{color:var(--ok)}
+
+/* module content blocks */
+.callout{border-radius:var(--radius);padding:14px 18px;margin:18px 0;max-width:65ch}
+.callout p:last-child,.callout ul:last-child,.callout ol:last-child{margin-bottom:0}
+.callout strong:first-child{display:block;margin-bottom:4px}
+.callout.key{background:var(--sky)}
+.callout.stop{background:var(--no-bg)}
+.callout.stop strong:first-child{color:var(--no)}
+.callout.warn{background:var(--warn-bg)}
+.callout.warn strong:first-child{color:var(--warn)}
+.lookfor{list-style:none;padding:0;margin:8px 0 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:10px}
+.lookfor li{border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:0}
+.lookfor b{display:block}
+.lookfor span{color:var(--ink-2);font-size:15px}
+.dodont{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px;margin:14px 0}
+.dodont > div{border-radius:12px;padding:12px 16px;min-width:0}
+.dodont .do{background:var(--ok-bg)}
+.dodont .dont{background:var(--no-bg)}
+.dodont h4{margin:0 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.dodont .do h4{color:var(--ok)}
+.dodont .dont h4{color:var(--no)}
+.dodont ul{margin:0;padding-left:20px}
+.dodont li{margin:4px 0}
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:10px 0 16px;max-width:65ch}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+ol.steps li::before{content:counter(s);font-weight:900;font-stretch:118%;color:var(--green-ink);font-variant-numeric:tabular-nums}
+.cloths{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:12px 0 18px}
+.cloth{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center}
+.sw{width:28px;height:28px;border-radius:6px;flex:none;border:1px solid rgba(0,0,0,.15)}
+.cloth b{display:block;line-height:1.2}
+.cloth span{font-size:14px;color:var(--ink-2)}
+.figure{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:24px;align-items:center;margin:16px 0 8px}
+@media (max-width:640px){.figure{grid-template-columns:1fr}.figure svg{max-width:260px;margin-inline:auto}}
+.figure svg{width:100%;height:auto;display:block}
+.car-body{fill:var(--wash);stroke:var(--ink-2);stroke-width:2}
+.car-glass{fill:var(--line);stroke:var(--ink-2);stroke-width:1.5}
+.car-wheel{fill:var(--ink)}
+.car-label{fill:var(--ink-2);font:700 11px var(--font);letter-spacing:.12em}
+.path{fill:none;stroke:var(--green);stroke-width:1.5;stroke-dasharray:4 5}
+.arrow{fill:none;stroke:var(--green);stroke-width:2.5}
+.arrowhead{fill:var(--green)}
+.pos circle{fill:var(--green)}
+.pos text{fill:var(--on-green);font:800 14px var(--font);text-anchor:middle;dominant-baseline:central}
+.seat{fill:var(--line);stroke:var(--ink-2);stroke-width:1}
+.seat-label{fill:var(--ink);font:800 10px var(--font);text-anchor:middle;dominant-baseline:central}
+table.positions{border-collapse:collapse;width:100%;font-size:15px}
+table.positions td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+table.positions td:first-child{font-weight:900;color:var(--green-ink);width:28px;font-variant-numeric:tabular-nums}
+.copyable{font-weight:700;user-select:all}
+
+/* quiz */
+.q{border:0;margin:0 0 26px;padding:0}
+.q legend{font-weight:700;font-size:18px;line-height:1.4;margin-bottom:10px;padding:0;max-width:65ch}
+.q legend .qn{color:var(--green-ink);font-variant-numeric:tabular-nums;margin-right:6px}
+.crit{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--no);border:1.5px solid var(--no);border-radius:999px;padding:0 8px;margin-left:6px;vertical-align:2px}
+.opt{display:flex;gap:12px;align-items:flex-start;border:2px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0;cursor:pointer;max-width:65ch}
+.opt:hover{border-color:var(--ink-2)}
+.opt input{margin:4px 0 0;width:18px;height:18px;accent-color:var(--green);flex:none}
+.opt:has(input:checked){border-color:var(--green);background:var(--sky)}
+.submit-bar{position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding-block:12px calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:24px}
+.submit-bar .count{color:var(--ink-2);font-variant-numeric:tabular-nums}
+
+/* result */
+.verdict{border-radius:var(--radius);padding:20px 22px;margin:0 0 24px}
+.verdict.pass{background:var(--ok-bg)}
+.verdict.fail{background:var(--no-bg)}
+.verdict .score{font-weight:900;font-stretch:118%;font-size:clamp(40px,8vw,64px);line-height:1;font-variant-numeric:tabular-nums}
+.verdict.pass .score{color:var(--ok)}
+.verdict.fail .score{color:var(--no)}
+.cert{border:2px solid var(--ink);border-radius:var(--radius);padding:24px;margin:0 0 20px;max-width:560px;background:var(--paper)}
+.cert .mark{font-weight:900;font-stretch:118%;font-size:22px;letter-spacing:-.01em}
+.cert .who{font-weight:900;font-stretch:112%;font-size:clamp(26px,5vw,36px);line-height:1.1;margin:14px 0 4px;overflow-wrap:anywhere}
+.cert dl{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;margin:16px 0 0;font-size:15px}
+.cert dt{color:var(--ink-2)}
+.cert dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
+.review{list-style:none;padding:0;margin:12px 0}
+.review li{border-bottom:1px solid var(--line);padding:14px 0;max-width:65ch}
+.review .mk{font-weight:800}
+.review .mk.ok{color:var(--ok)}
+.review .mk.no{color:var(--no)}
+.review p{margin:4px 0;font-size:16px}
+.review .why{color:var(--ink-2)}
+
+/* admin */
+.stats{display:flex;flex-wrap:wrap;gap:10px 28px;margin:8px 0 8px}
+.stat b{display:block;font-weight:900;font-stretch:118%;font-size:32px;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:14px;color:var(--ink-2)}
+.tablewrap{overflow-x:auto;margin:12px 0 8px;border:1px solid var(--line);border-radius:12px}
+table.list{border-collapse:collapse;width:100%;min-width:720px;font-size:15px}
+table.list th,table.list td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.list th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+table.list tr:last-child td{border-bottom:0}
+table.list td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+table.list .actions{display:flex;gap:6px;flex-wrap:wrap}
+.pill{display:inline-block;font-size:13px;font-weight:800;border-radius:999px;padding:2px 10px;white-space:nowrap}
+.pill.pass,.pill.approved{background:var(--ok-bg);color:var(--ok)}
+.pill.fail,.pill.revoked{background:var(--no-bg);color:var(--no)}
+.pill.pending{background:var(--warn-bg);color:var(--warn)}
+.pill.none{background:var(--wash);color:var(--ink-2)}
+.sub{color:var(--ink-2);font-size:13px;display:block;overflow-wrap:anywhere}
+.empty{border:2px dashed var(--line);border-radius:var(--radius);padding:20px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<header class="top gutter">
+  <div class="col" id="top-col">
+    <a class="brand" href="../">Sparqle<span>Washers</span></a>
+    <div class="account" id="account" hidden>
+      <button class="tab" id="tab-training" type="button" aria-current="true" hidden>Training</button>
+      <button class="tab" id="tab-admin" type="button" aria-current="false" hidden>Washers</button>
+      <button class="linkbtn" id="logout" type="button">Log out</button>
+    </div>
+  </div>
+</header>
+<div class="gutter"><div class="col"><ol class="rail" id="rail" aria-label="Course modules" hidden></ol></div></div>
+<main class="gutter"><div class="col" id="view"><p class="muted">Loading…</p></div></main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.99.3/dist/umd/supabase.js"></script>
+<script>
+(function(){
+"use strict";
+var CFG = window.SPARQLE_CONFIG || {};
+var CONTACT = CFG.contactEmail || "hello@sparqle.com.au";
+// Where email links bring people back to; keeps the ?login=on preview before launch.
+var HERE = location.origin + location.pathname + (/[?&]login=on/.test(location.search) ? "?login=on" : "");
+
+/* Read what the email link put in the address before Supabase clears it. */
+var hashParams = new URLSearchParams(location.hash.replace(/^#/, ""));
+var queryParams = new URLSearchParams(location.search);
+var arrivedForRecovery = hashParams.get("type") === "recovery";
+var linkError = hashParams.get("error_description") || queryParams.get("error_description");
+
+var state = {
+  view: "loading", flash: null,
+  session: null, uid: null, email: "",
+  washer: null, isAdmin: false,
+  content: null, history: [],
+  mod: 0, seen: new Set(),
+  order: null, answers: {}, result: null, submitting: false, submitError: "",
+  admin: { washers: null, results: null, busy: null, error: "" }
+};
+var sb = null;
+
+var $ = function(s){ return document.querySelector(s); };
+var view = $("#view");
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function fmtDate(iso){ try { return new Date(iso).toLocaleDateString("en-AU", { day:"numeric", month:"short", year:"numeric", timeZone:"Australia/Sydney" }); } catch(e){ return String(iso); } }
+function fmtDateTime(iso){ try { return new Date(iso).toLocaleString("en-AU", { timeZone:"Australia/Sydney" }) + " (Sydney time)"; } catch(e){ return String(iso); } }
+function store(k, v){ try { if (v === undefined) return JSON.parse(localStorage.getItem("sparqle-washer:" + k) || "null"); localStorage.setItem("sparqle-washer:" + k, JSON.stringify(v)); } catch(e){ return null; } }
+function shuffle(n){ var a = []; for (var i = 0; i < n; i++) a.push(i); for (var j = a.length - 1; j > 0; j--){ var r = Math.floor(Math.random() * (j + 1)); var t = a[j]; a[j] = a[r]; a[r] = t; } return a; }
+
+/* ---------- notifications to the admin inbox (FormSubmit, like the site's other forms) ---------- */
+function notify(fields){
+  if (!CFG.notifyEndpoint) return Promise.resolve(false);
+  var body = Object.assign({ _template: "table", _captcha: "false" }, fields);
+  function send(){
+    return fetch(CFG.notifyEndpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(body) })
+      .then(function(r){ return r.json(); })
+      .then(function(r){ if (String(r.success) !== "true") throw new Error(r.message || "Not sent"); return true; });
+  }
+  return send().catch(function(){
+    return new Promise(function(res){ setTimeout(res, 3000); }).then(send);
+  }).catch(function(e){ console.warn("Email notification failed", e); return false; });
+}
+
+/* ---------- navigation ---------- */
+function go(v, opts){
+  opts = opts || {};
+  state.view = v;
+  if (typeof opts.mod === "number") state.mod = opts.mod;
+  if (v === "module"){ state.seen.add(state.mod); store("seen:" + state.uid, Array.from(state.seen)); }
+  if (v === "quiz" && !state.order) newAttempt();
+  if (v === "admin") loadAdmin();
+  render();
+  if (!opts.keepScroll) window.scrollTo({ top: 0 });
+}
+function newAttempt(){
+  state.order = state.content.questions.map(function(q){ return shuffle(q.options.length); });
+  state.answers = {}; state.result = null; state.submitError = "";
+}
+
+/* ---------- views: before login ---------- */
+function flashInner(){
+  var f = state.flash;
+  if (!f) return "";
+  return '<div class="msg ' + (f.type === "err" ? "err" : "info") + '" role="' + (f.type === "err" ? "alert" : "status") + '">' + f.html + '</div>';
+}
+function flashHtml(){ return '<div id="form-msg">' + flashInner() + '</div>'; }
+function switcher(active){
+  return '<div class="switcher">' +
+    '<button class="tab" type="button" data-go="login" aria-current="' + (active === "login") + '">Log in</button>' +
+    '<button class="tab" type="button" data-go="signup" aria-current="' + (active === "signup") + '">Create account</button></div>';
+}
+function viewSoon(){
+  return '<p class="eyebrow">Washer area</p><h1>Opening soon</h1>' +
+    '<p class="lede">Washer accounts and training aren’t open yet. If you’ve signed up to wash with Sparqle, we’ll email you when you can create your account.</p>' +
+    '<p><a class="btn btn-ghost" href="../">Back to sparqle.com.au</a></p>';
+}
+function viewSetup(msg){
+  return '<p class="eyebrow">Washer area</p><h1>Not set up yet</h1>' +
+    '<p class="lede">' + esc(msg) + '</p>' +
+    '<p class="muted">Setup steps are in <code>supabase/SETUP.md</code> in the website repository.</p>';
+}
+function viewLogin(){
+  return '<div class="auth"><p class="eyebrow">Washer area</p><h2>Log in</h2>' + switcher("login") +
+    '<form class="form" id="f-login" novalidate>' + flashHtml() +
+    '<div class="field"><label for="li-email">Email</label><input id="li-email" type="email" autocomplete="email" required></div>' +
+    '<div class="field"><label for="li-pass">Password</label><input id="li-pass" type="password" autocomplete="current-password" required></div>' +
+    '<label class="check"><input type="checkbox" data-showpass="li-pass"> Show password</label>' +
+    '<button class="btn btn-primary" type="submit">Log in</button>' +
+    '<p class="fine"><button class="linkbtn" type="button" data-go="forgot" style="padding:0">Forgot your password?</button></p>' +
+    '</form></div>';
+}
+function viewSignup(){
+  return '<div class="auth"><p class="eyebrow">Washer area</p><h2>Create your washer account</h2>' + switcher("signup") +
+    '<p class="muted">Use the same email you used when you signed up to wash with Sparqle. We’ll check your details, then approve your account so you can start the training.</p>' +
+    '<form class="form" id="f-signup" novalidate>' + flashHtml() +
+    '<div class="field"><label for="su-name">Full name</label><input id="su-name" type="text" autocomplete="name" required maxlength="120"></div>' +
+    '<div class="field"><label for="su-phone">Mobile</label><input id="su-phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="e.g. 0412345678" maxlength="10" required></div>' +
+    '<div class="field"><label for="su-email">Email</label><input id="su-email" type="email" autocomplete="email" required></div>' +
+    '<div class="field"><label for="su-pass">Password</label><input id="su-pass" type="password" autocomplete="new-password" minlength="8" required><small>At least 8 characters.</small></div>' +
+    '<label class="check"><input type="checkbox" data-showpass="su-pass"> Show password</label>' +
+    '<button class="btn btn-primary" type="submit">Create account</button>' +
+    '<p class="fine">By creating an account you agree to our <a href="../terms.html">Terms</a> and <a href="../privacy.html">Privacy Policy</a>.</p>' +
+    '</form></div>';
+}
+function viewForgot(){
+  return '<div class="auth"><p class="eyebrow">Washer area</p><h2>Reset your password</h2>' +
+    '<p class="muted">Enter your account email and we’ll send you a link to set a new password.</p>' +
+    '<form class="form" id="f-forgot" novalidate>' + flashHtml() +
+    '<div class="field"><label for="fp-email">Email</label><input id="fp-email" type="email" autocomplete="email" required></div>' +
+    '<button class="btn btn-primary" type="submit">Send reset link</button>' +
+    '<p class="fine"><button class="linkbtn" type="button" data-go="login" style="padding:0">Back to log in</button></p>' +
+    '</form></div>';
+}
+function viewRecovery(){
+  return '<div class="auth"><p class="eyebrow">Washer area</p><h2>Set a new password</h2>' +
+    '<form class="form" id="f-recovery" novalidate>' + flashHtml() +
+    '<div class="field"><label for="rp-pass">New password</label><input id="rp-pass" type="password" autocomplete="new-password" minlength="8" required><small>At least 8 characters.</small></div>' +
+    '<label class="check"><input type="checkbox" data-showpass="rp-pass"> Show password</label>' +
+    '<button class="btn btn-primary" type="submit">Save new password</button>' +
+    '</form></div>';
+}
+function viewMessage(){
+  var m = state.message || {};
+  return '<div class="auth"><p class="eyebrow">Washer area</p><h2>' + esc(m.title) + '</h2>' + m.html +
+    '<p><button class="btn btn-ghost" type="button" data-go="login">Back to log in</button></p></div>';
+}
+
+/* ---------- views: after login, not yet approved ---------- */
+function viewPending(){
+  var w = state.washer || {};
+  return '<p class="eyebrow">Washer area</p><h1>Waiting for approval</h1>' +
+    '<p class="lede">Thanks, ' + esc(w.full_name || "there") + '. Sparqle checks every new washer before giving access to the training. We’ll let you know once your account is approved.</p>' +
+    '<dl class="cert" style="display:grid;grid-template-columns:auto 1fr;gap:4px 16px;border-width:1px;font-size:15px">' +
+    '<dt class="muted">Name</dt><dd style="margin:0;font-weight:700">' + esc(w.full_name) + '</dd>' +
+    '<dt class="muted">Email</dt><dd style="margin:0;font-weight:700;overflow-wrap:anywhere">' + esc(w.email || state.email) + '</dd>' +
+    '<dt class="muted">Mobile</dt><dd style="margin:0;font-weight:700">' + esc(w.phone) + '</dd></dl>' +
+    '<p class="muted">Details wrong, or waiting a while? Email <span class="copyable">' + esc(CONTACT) + '</span>.</p>' +
+    '<button class="btn btn-ghost" type="button" data-recheck="1">Check again</button>';
+}
+function viewRevoked(){
+  return '<p class="eyebrow">Washer area</p><h1>Access turned off</h1>' +
+    '<p class="lede">Your access to the washer training is turned off. If you think this is a mistake, email <span class="copyable">' + esc(CONTACT) + '</span>.</p>';
+}
+function viewNoAccount(){
+  return '<p class="eyebrow">Washer area</p><h1>Account not found</h1>' +
+    '<p class="lede">You’re logged in, but we couldn’t find your washer details. Email <span class="copyable">' + esc(CONTACT) + '</span> and we’ll sort it out.</p>';
+}
+
+/* ---------- views: the course ---------- */
+function passedResult(){ for (var i = 0; i < state.history.length; i++) if (state.history[i].passed) return state.history[i]; return null; }
+function priorResultHtml(){
+  var p = passedResult(), last = state.history[0];
+  if (p) return '<div class="callout key"><strong>You’ve passed</strong><p>You passed on ' + esc(fmtDate(p.created_at)) + ' with ' + p.score + ' out of ' + p.total + '. You can go over the modules again at any time.</p></div>';
+  if (last) return '<div class="callout warn"><strong>Not passed yet</strong><p>Your last attempt on ' + esc(fmtDate(last.created_at)) + ' scored ' + last.score + ' out of ' + last.total + '. Go back over the modules, then try the quiz again.</p></div>';
+  return "";
+}
+function viewNoContent(){
+  return '<p class="eyebrow">Washer training</p><h1>The course isn’t loaded yet</h1>' +
+    '<p class="lede">' + (state.isAdmin ? 'Run <code>training-content.sql</code> in the Supabase SQL Editor to load the modules and quiz.' : 'Please check back soon, or email <span class="copyable">' + esc(CONTACT) + '</span>.') + '</p>';
+}
+function viewStart(){
+  var M = state.content.modules, Q = state.content.questions;
+  var next = 0; for (var i = 0; i < M.length; i++){ if (!state.seen.has(i)){ next = i; break; } }
+  var started = state.seen.size > 0 && state.seen.size < M.length;
+  var rows = M.map(function(m, i){
+    return '<li><button type="button" data-mod="' + i + '"><span class="n">' + (i + 1) + '</span>' +
+      '<span class="t">' + esc(m.title) + '<small>' + esc(m.blurb) + '</small></span>' +
+      '<span class="s ' + (state.seen.has(i) ? "done" : "") + '">' + (state.seen.has(i) ? "Read" : "") + '</span></button></li>';
+  }).join("");
+  var crit = Q.filter(function(q){ return q.critical; }).length;
+  return '<p class="eyebrow">Before your first job</p><h1>Washer training</h1>' +
+    '<p class="lede">How to wash a car the Sparqle way, what to check before you start, and what to do if there’s damage or a dispute. It takes about 20 minutes.</p>' +
+    priorResultHtml() +
+    '<ol class="contents">' + rows +
+    '<li><button type="button" data-quiz="1"><span class="n">✓</span><span class="t">Quiz<small>' + Q.length + ' questions. You need ' + (state.content.passMark || "most") + ' or more right' + (crit ? ', and all ' + crit + ' incident questions' : '') + '.</small></span><span class="s"></span></button></li>' +
+    '</ol>' +
+    '<button class="btn btn-primary" type="button" data-mod="' + (started ? next : 0) + '">' + (started ? "Continue the course" : "Start module 1") + '</button>';
+}
+function viewModule(){
+  var M = state.content.modules, i = state.mod, m = M[i], last = i === M.length - 1;
+  return '<p class="eyebrow">Module ' + (i + 1) + ' of ' + M.length + '</p><h2>' + esc(m.title) + '</h2>' + m.html +
+    '<div class="nav-row">' +
+    (i > 0 ? '<button class="btn btn-ghost" type="button" data-mod="' + (i - 1) + '">← ' + esc(M[i - 1].title) + '</button>' : '<button class="btn btn-ghost" type="button" data-go="start">← Course contents</button>') +
+    (last ? '<button class="btn btn-primary" type="button" data-quiz="1">Take the quiz →</button>' : '<button class="btn btn-primary" type="button" data-mod="' + (i + 1) + '">Next: ' + esc(M[i + 1].title) + ' →</button>') +
+    '</div>';
+}
+function viewQuiz(){
+  var Q = state.content.questions;
+  var qs = Q.map(function(q, qi){
+    var opts = state.order[qi].map(function(oi){
+      return '<label class="opt"><input type="radio" name="q' + qi + '" id="q' + qi + '-o' + oi + '" value="' + oi + '"' + (state.answers[qi] === oi ? " checked" : "") + '><span>' + esc(q.options[oi]) + '</span></label>';
+    }).join("");
+    return '<fieldset class="q"><legend><span class="qn">' + (qi + 1) + '.</span>' + esc(q.q) + (q.critical ? '<span class="crit">Must get right</span>' : '') + '</legend>' + opts + '</fieldset>';
+  }).join("");
+  return '<p class="eyebrow">Final step</p><h2>Quiz</h2>' +
+    '<p>' + Q.length + ' questions. To pass you need <b>' + (state.content.passMark || "most") + ' or more</b> correct, <b>and</b> every question marked <span class="crit" style="margin-left:0">Must get right</span>. If you don’t pass, go over the modules and try again. You can have 5 attempts a day.</p>' +
+    '<form id="quiz-form" novalidate>' + qs +
+    (state.submitError ? '<div class="msg err" role="alert">' + state.submitError + '</div>' : '') +
+    '<div class="submit-bar"><span class="count" id="count"></span><button class="btn btn-primary" id="submit" type="submit"' + (state.submitting ? " disabled" : "") + '>' + (state.submitting ? "Marking…" : "Submit answers") + '</button></div>' +
+    '</form>';
+}
+function viewResult(){
+  var r = state.result, Q = state.content.questions, w = state.washer || {};
+  var wrong = r.marks.filter(function(x){ return !x.ok; }).length;
+  var reason = "";
+  if (!r.passed){
+    var parts = [];
+    if (r.score < r.pass_mark) parts.push("you need " + r.pass_mark + " or more correct");
+    if (!r.critical_ok) parts.push("every “Must get right” question has to be right");
+    reason = '<p>Not passed yet: ' + parts.join(", and ") + '.</p>';
+  }
+  var review = r.marks.map(function(x, qi){
+    var q = Q[qi];
+    return '<li><span class="mk ' + (x.ok ? "ok" : "no") + '">' + (x.ok ? "Correct" : "Incorrect") + '</span> · <b>' + (qi + 1) + '. ' + esc(q.q) + '</b>' +
+      (x.ok ? "" : '<p>You answered: ' + esc(x.chosen == null ? "No answer" : q.options[x.chosen]) + '</p><p>Correct answer: <b>' + esc(q.options[x.correct]) + '</b></p>' +
+        '<p class="why">' + esc(x.why) + (typeof q.module === "number" ? ' <a href="#" data-mod="' + q.module + '">Review module ' + (q.module + 1) + '</a>' : '') + '</p>') + '</li>';
+  }).join("");
+  return '<p class="eyebrow">Your result</p>' +
+    '<div class="verdict ' + (r.passed ? "pass" : "fail") + '"><div class="score">' + r.score + '/' + r.total + '</div>' +
+    '<p style="margin:8px 0 0;font-weight:700">' + (r.passed ? "Passed. You’re ready for your first job." : "Not passed yet") + '</p>' + reason + '</div>' +
+    (r.passed ? '<div class="cert"><div class="mark">Sparqle</div><p style="margin:12px 0 0" class="muted">Washer training completed</p>' +
+      '<div class="who">' + esc(w.full_name) + '</div>' +
+      '<dl><dt>Date</dt><dd>' + esc(fmtDate(r.at)) + '</dd><dt>Score</dt><dd>' + r.score + ' out of ' + r.total + '</dd><dt>Incident questions</dt><dd>All correct</dd></dl></div>' : '') +
+    '<p class="muted">Your result has been saved and sent to Sparqle.</p>' +
+    '<div class="nav-row" style="margin-top:20px"><button class="btn btn-ghost" type="button" data-go="start">Course contents</button>' +
+    (r.passed ? "" : '<button class="btn btn-primary" type="button" data-retake="1">Retake the quiz</button>') + '</div>' +
+    '<h3>' + (wrong ? 'Review: ' + wrong + ' to go over' : 'Every answer correct') + '</h3><ul class="review">' + review + '</ul>';
+}
+
+/* ---------- views: admin ---------- */
+function viewAdmin(){
+  var A = state.admin;
+  var head = '<p class="eyebrow">Admin</p><h2>Washers</h2>' +
+    '<p class="muted">Approve washers here so they can do the training. Approved washers aren’t emailed automatically, so let them know by text or email. Quiz results also go to your inbox.</p>' +
+    (A.error ? '<div class="msg err" role="alert">' + esc(A.error) + '</div>' : '');
+  if (!A.washers || !A.results) return head + '<p class="muted">Loading…</p>';
+
+  var byUser = {};
+  A.results.forEach(function(r){
+    var s = byUser[r.user_id] || (byUser[r.user_id] = { attempts: 0, best: null, last: null, passed: null, total: r.total });
+    s.attempts++;
+    if (!s.last || r.created_at > s.last) s.last = r.created_at;
+    if (s.best === null || r.score > s.best) s.best = r.score;
+    if (r.passed && (!s.passed || r.created_at < s.passed)) s.passed = r.created_at;
+  });
+  var W = A.washers.filter(function(w){ return w.id !== state.uid; });
+  var pending = W.filter(function(w){ return w.status === "pending"; });
+  var approved = W.filter(function(w){ return w.status === "approved"; });
+  var passedCount = approved.filter(function(w){ return byUser[w.id] && byUser[w.id].passed; }).length;
+
+  function actions(w){
+    var b = A.busy === w.id ? " disabled" : "";
+    if (w.status === "pending") return '<button class="btn btn-primary btn-sm" type="button" data-status="approved" data-id="' + esc(w.id) + '"' + b + '>Approve</button><button class="btn btn-danger btn-sm" type="button" data-status="revoked" data-id="' + esc(w.id) + '"' + b + '>Decline</button>';
+    if (w.status === "approved") return '<button class="btn btn-danger btn-sm" type="button" data-status="revoked" data-id="' + esc(w.id) + '"' + b + '>Turn off access</button>';
+    return '<button class="btn btn-ghost btn-sm" type="button" data-status="approved" data-id="' + esc(w.id) + '"' + b + '>Approve</button>';
+  }
+  function who(w){
+    return '<b>' + esc(w.full_name || "No name given") + '</b><span class="sub">' + esc(w.email) + '</span><span class="sub">' + esc(w.phone) + '</span>';
+  }
+  function quiz(w){
+    var s = byUser[w.id];
+    if (!s) return '<span class="pill none">Not taken</span>';
+    return (s.passed ? '<span class="pill pass">Passed</span><span class="sub">' + esc(fmtDate(s.passed)) + '</span>' : '<span class="pill fail">Not passed</span>') +
+      '<span class="sub">Best ' + s.best + '/' + s.total + ' · ' + s.attempts + (s.attempts === 1 ? ' attempt' : ' attempts') + '</span>';
+  }
+  var statusLabel = { pending: "Waiting", approved: "Approved", revoked: "Turned off" };
+
+  var pendingHtml = pending.length
+    ? '<div class="tablewrap"><table class="list"><thead><tr><th>Washer</th><th>Signed up</th><th></th></tr></thead><tbody>' +
+      pending.map(function(w){ return '<tr><td>' + who(w) + '</td><td class="num">' + esc(fmtDate(w.created_at)) + '</td><td><div class="actions">' + actions(w) + '</div></td></tr>'; }).join("") +
+      '</tbody></table></div>'
+    : '<div class="empty">No one is waiting for approval.</div>';
+
+  var others = W.filter(function(w){ return w.status !== "pending"; });
+  var allHtml = others.length
+    ? '<div class="tablewrap"><table class="list"><thead><tr><th>Washer</th><th>Access</th><th>Quiz</th><th>Last attempt</th><th></th></tr></thead><tbody>' +
+      others.map(function(w){
+        var s = byUser[w.id];
+        return '<tr><td>' + who(w) + '</td><td><span class="pill ' + esc(w.status) + '">' + statusLabel[w.status] + '</span>' + (w.approved_at ? '<span class="sub">' + esc(fmtDate(w.approved_at)) + '</span>' : '') + '</td>' +
+          '<td>' + quiz(w) + '</td><td class="num">' + (s ? esc(fmtDate(s.last)) : '–') + '</td><td><div class="actions">' + actions(w) + '</div></td></tr>';
+      }).join("") + '</tbody></table></div>'
+    : '<div class="empty">No approved washers yet.</div>';
+
+  return head +
+    '<div class="stats"><div class="stat"><b>' + pending.length + '</b><span>Waiting for approval</span></div>' +
+    '<div class="stat"><b>' + approved.length + '</b><span>Approved</span></div>' +
+    '<div class="stat"><b>' + passedCount + '</b><span>Approved and passed the quiz</span></div></div>' +
+    '<h3>Waiting for approval</h3>' + pendingHtml +
+    '<h3>All washers</h3>' + allHtml +
+    '<p style="margin-top:20px"><button class="btn btn-ghost btn-sm" type="button" data-refresh="1">Refresh</button></p>';
+}
+
+/* ---------- render ---------- */
+var COURSE_VIEWS = { start: 1, module: 1, quiz: 1, result: 1 };
+function render(){
+  var loggedIn = !!state.session && state.view !== "recovery";
+  $("#account").hidden = !loggedIn;
+  var canTrain = state.isAdmin || (state.washer && state.washer.status === "approved");
+  $("#tab-training").hidden = !(state.isAdmin && canTrain);
+  $("#tab-admin").hidden = !state.isAdmin;
+  $("#tab-training").setAttribute("aria-current", String(!!COURSE_VIEWS[state.view]));
+  $("#tab-admin").setAttribute("aria-current", String(state.view === "admin"));
+  $("#top-col").classList.toggle("wide", state.view === "admin");
+  view.classList.toggle("wide", state.view === "admin");
+
+  var rail = $("#rail");
+  var showRail = !!COURSE_VIEWS[state.view] && state.content;
+  rail.hidden = !showRail;
+  if (showRail){
+    var items = state.content.modules.map(function(m, i){
+      var cur = state.view === "module" && state.mod === i;
+      return '<li><button type="button" data-mod="' + i + '" class="' + (state.seen.has(i) ? "done" : "") + '"' + (cur ? ' aria-current="step"' : '') + ' aria-label="Module ' + (i + 1) + ': ' + esc(m.title) + '">' + (i + 1) + '</button></li>';
+    });
+    var quizCur = state.view === "quiz" || state.view === "result";
+    items.push('<li><button type="button" data-quiz="1"' + (quizCur ? ' aria-current="step"' : '') + '>Quiz</button></li>');
+    rail.innerHTML = items.join("");
+  }
+
+  var html;
+  switch (state.view){
+    case "soon": html = viewSoon(); break;
+    case "setup": html = viewSetup(state.setupMsg); break;
+    case "login": html = viewLogin(); break;
+    case "signup": html = viewSignup(); break;
+    case "forgot": html = viewForgot(); break;
+    case "recovery": html = viewRecovery(); break;
+    case "message": html = viewMessage(); break;
+    case "pending": html = viewPending(); break;
+    case "revoked": html = viewRevoked(); break;
+    case "noaccount": html = viewNoAccount(); break;
+    case "nocontent": html = viewNoContent(); break;
+    case "start": html = viewStart(); break;
+    case "module": html = viewModule(); break;
+    case "quiz": html = viewQuiz(); break;
+    case "result": html = viewResult(); break;
+    case "admin": html = viewAdmin(); break;
+    default: html = '<p class="muted">Loading…</p>';
+  }
+  view.innerHTML = html;
+  bindView();
+}
+
+/* ---------- form handling ---------- */
+function setBusy(form, busy, label){
+  var b = form.querySelector('button[type="submit"]');
+  if (!b) return;
+  if (busy){ b.dataset.label = b.textContent; b.textContent = label || "Please wait…"; b.disabled = true; }
+  else { b.textContent = b.dataset.label || b.textContent; b.disabled = false; }
+}
+// Show a message above the form without redrawing it, so nothing the washer typed is lost.
+function fail(html){
+  state.flash = { type: "err", html: html };
+  var slot = document.getElementById("form-msg");
+  if (slot){ slot.innerHTML = flashInner(); slot.scrollIntoView({ block: "nearest" }); }
+  else render();
+}
+function val(id){ var el = document.getElementById(id); return el ? el.value.trim() : ""; }
+function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+function onSubmit(sel, handler){
+  var form = $(sel);
+  if (form) form.addEventListener("submit", function(e){ handler(form, e); });
+}
+
+function bindView(){
+  document.querySelectorAll("[data-showpass]").forEach(function(c){
+    c.addEventListener("change", function(){ var p = document.getElementById(c.dataset.showpass); if (p) p.type = c.checked ? "text" : "password"; });
+  });
+  var phone = document.getElementById("su-phone");
+  if (phone) phone.addEventListener("input", function(){ var v = phone.value.replace(/\D/g, "").slice(0, 10); if (v !== phone.value) phone.value = v; });
+
+  onSubmit("#f-login", function(f, e){
+    e.preventDefault();
+    var email = val("li-email"), pass = document.getElementById("li-pass").value;
+    if (!validEmail(email) || !pass) return fail("Enter your email and password.");
+    setBusy(f, true, "Logging in…");
+    sb.auth.signInWithPassword({ email: email, password: pass }).then(function(res){
+      if (res.error){
+        setBusy(f, false);
+        var m = res.error.message || "";
+        if (/confirm/i.test(m)){
+          state.pendingEmail = email;
+          return fail("<b>Confirm your email first.</b> Open the link in the email we sent when you created your account. " +
+            '<button class="linkbtn" type="button" data-resend="1" style="padding:0">Send the link again</button>');
+        }
+        if (/invalid/i.test(m)) return fail("That email and password don’t match an account. Check them, or reset your password.");
+        return fail(esc(m || "Couldn’t log in. Please try again."));
+      }
+      state.flash = null;
+      onSession(res.data.session);
+    });
+  });
+
+  onSubmit("#f-signup", function(f, e){
+    e.preventDefault();
+    var name = val("su-name"), ph = val("su-phone"), email = val("su-email"), pass = document.getElementById("su-pass").value;
+    if (name.length < 2) return fail("Enter your full name.");
+    if (!/^04\d{8}$/.test(ph)) return fail("Enter a 10-digit mobile number starting with 04.");
+    if (!validEmail(email)) return fail("Enter a valid email address.");
+    if (pass.length < 8) return fail("Your password needs at least 8 characters.");
+    setBusy(f, true, "Creating account…");
+    sb.auth.signUp({ email: email, password: pass, options: { data: { full_name: name, phone: ph }, emailRedirectTo: HERE } }).then(function(res){
+      if (res.error){
+        setBusy(f, false);
+        var m = res.error.message || "";
+        if (/registered|exists/i.test(m)) return fail("There’s already an account with this email. Log in instead, or reset your password.");
+        if (/rate limit/i.test(m)) return fail("Too many sign-ups in a short time. Please try again in an hour, or email " + esc(CONTACT) + ".");
+        if (/password/i.test(m)) return fail(esc(m));
+        return fail(esc(m || "Couldn’t create your account. Please try again."));
+      }
+      var user = res.data.user;
+      var isNew = !(user && Array.isArray(user.identities) && user.identities.length === 0);
+      if (isNew){
+        notify({
+          _subject: "New washer account waiting for approval: " + name,
+          "Name": name, "Mobile": ph, "Email": email, "email": email,
+          "Next step": "Log in at " + HERE + " and approve them under Washers.",
+          "Signed up": fmtDateTime(new Date().toISOString())
+        });
+      }
+      state.flash = null;
+      if (res.data.session) return onSession(res.data.session);
+      state.message = { title: "Check your email", html:
+        '<p class="lede">We’ve sent a link to <b>' + esc(email) + '</b>. Open it to confirm your email, then log in.</p>' +
+        '<p class="muted">Can’t see it? Check your junk folder. ' + (isNew ? '' : 'If you already have an account, log in or reset your password instead.') + '</p>' };
+      go("message");
+    });
+  });
+
+  onSubmit("#f-forgot", function(f, e){
+    e.preventDefault();
+    var email = val("fp-email");
+    if (!validEmail(email)) return fail("Enter a valid email address.");
+    setBusy(f, true, "Sending…");
+    sb.auth.resetPasswordForEmail(email, { redirectTo: HERE }).then(function(res){
+      if (res.error && /rate limit/i.test(res.error.message || "")){ setBusy(f, false); return fail("Too many requests. Please wait a few minutes and try again."); }
+      state.flash = null;
+      state.message = { title: "Check your email", html: '<p class="lede">If there’s an account for <b>' + esc(email) + '</b>, we’ve sent it a link to set a new password.</p>' };
+      go("message");
+    });
+  });
+
+  onSubmit("#f-recovery", function(f, e){
+    e.preventDefault();
+    var pass = document.getElementById("rp-pass").value;
+    if (pass.length < 8) return fail("Your password needs at least 8 characters.");
+    setBusy(f, true, "Saving…");
+    sb.auth.updateUser({ password: pass }).then(function(res){
+      if (res.error){ setBusy(f, false); return fail(esc(res.error.message || "Couldn’t save your password. Please try again.")); }
+      state.flash = { type: "info", html: "Your new password is saved." };
+      loadAccount();
+    });
+  });
+
+  var quizForm = $("#quiz-form");
+  if (quizForm) bindQuiz(quizForm);
+}
+
+function bindQuiz(form){
+  var btn = $("#submit"), count = $("#count"), n = state.content.questions.length;
+  function update(){
+    var k = Object.keys(state.answers).length;
+    count.textContent = k + " of " + n + " answered";
+    btn.disabled = state.submitting || k < n;
+  }
+  form.addEventListener("change", function(e){
+    var m = /^q(\d+)$/.exec(e.target.name || "");
+    if (m){ state.answers[+m[1]] = +e.target.value; update(); }
+  });
+  form.addEventListener("submit", function(e){ e.preventDefault(); if (!btn.disabled) submitQuiz(); });
+  update();
+}
+
+function submitQuiz(){
+  var Q = state.content.questions;
+  var answers = Q.map(function(_, i){ return state.answers[i]; });
+  state.submitting = true; state.submitError = "";
+  render();
+  sb.rpc("submit_quiz", { p_answers: answers }).then(function(res){
+    state.submitting = false;
+    if (res.error){
+      var m = res.error.message || "";
+      state.submitError = /too_many_attempts/.test(m)
+        ? "You’ve used today’s 5 attempts. Go back over the modules and try again tomorrow."
+        : "Your answers couldn’t be marked. Check your connection and try again. (" + esc(m) + ")";
+      render();
+      return;
+    }
+    var r = res.data;
+    state.result = r;
+    state.history.unshift({ score: r.score, total: r.total, passed: r.passed, created_at: r.at });
+    go("result");
+    emailResult(r);
+  });
+}
+
+function emailResult(r){
+  var Q = state.content.questions, w = state.washer || {};
+  var wrong = r.marks.map(function(x, i){
+    if (x.ok) return null;
+    var q = Q[i];
+    return (i + 1) + ". " + q.q + (q.critical ? " [MUST GET RIGHT]" : "") + " | Answered: " + (x.chosen == null ? "No answer" : q.options[x.chosen]);
+  }).filter(Boolean);
+  notify({
+    _subject: "Washer quiz " + (r.passed ? "PASSED" : "NOT PASSED") + ": " + (w.full_name || state.email) + " (" + r.score + "/" + r.total + ")",
+    "Washer": w.full_name || "", "Email": w.email || state.email, "email": w.email || state.email, "Mobile": w.phone || "",
+    "Result": r.passed ? "Passed" : "Not passed",
+    "Score": r.score + " out of " + r.total + " (pass mark " + r.pass_mark + ")",
+    "Incident questions": r.critical_ok ? "All correct" : "At least one wrong",
+    "Attempt": "Attempt " + state.history.length,
+    "Questions wrong": wrong.length ? wrong.join("\n") : "None",
+    "Submitted": fmtDateTime(r.at)
+  });
+}
+
+/* ---------- admin data ---------- */
+function loadAdmin(){
+  var A = state.admin;
+  A.error = "";
+  Promise.all([
+    sb.from("washers").select("id,full_name,phone,email,status,created_at,approved_at").order("created_at", { ascending: false }),
+    sb.from("quiz_results").select("user_id,score,total,passed,created_at").order("created_at", { ascending: false }).limit(1000)
+  ]).then(function(res){
+    if (res[0].error || res[1].error){ A.error = "Couldn’t load washers: " + ((res[0].error || res[1].error).message || "unknown error"); A.washers = A.washers || []; A.results = A.results || []; }
+    else { A.washers = res[0].data; A.results = res[1].data; }
+    if (state.view === "admin") render();
+  });
+}
+function setStatus(id, status){
+  var A = state.admin;
+  A.busy = id; render();
+  sb.rpc("set_washer_status", { p_id: id, p_status: status }).then(function(res){
+    A.busy = null;
+    if (res.error){ A.error = "Couldn’t update that washer: " + (res.error.message || "unknown error"); render(); return; }
+    loadAdmin();
+  });
+}
+
+/* ---------- account loading ---------- */
+function onSession(session){
+  state.session = session;
+  state.uid = session ? session.user.id : null;
+  state.email = session ? session.user.email : "";
+  if (!session){ go("login"); return; }
+  loadAccount();
+}
+function loadAccount(){
+  state.view = "loading"; render();
+  var uid = state.uid;
+  state.seen = new Set(store("seen:" + uid) || []);
+  Promise.all([
+    sb.from("washers").select("id,full_name,phone,email,status").eq("id", uid).maybeSingle(),
+    sb.rpc("is_admin")
+  ]).then(function(res){
+    state.washer = res[0].data || null;
+    state.isAdmin = res[1].data === true;
+    if (!state.washer && !state.isAdmin) return go("noaccount");
+    var approved = state.isAdmin || state.washer.status === "approved";
+    if (!approved) return go(state.washer.status === "revoked" ? "revoked" : "pending");
+    return Promise.all([
+      sb.from("training_content").select("modules,questions,pass_mark").eq("id", 1).maybeSingle(),
+      sb.from("quiz_results").select("score,total,passed,created_at").eq("user_id", uid).order("created_at", { ascending: false }).limit(50)
+    ]).then(function(r2){
+      var c = r2[0].data;
+      state.history = r2[1].data || [];
+      if (!c || !Array.isArray(c.modules) || !Array.isArray(c.questions)){ state.content = null; return go(state.isAdmin ? "admin" : "nocontent"); }
+      state.content = { modules: c.modules, questions: c.questions, passMark: c.pass_mark };
+      state.order = null;
+      go(state.isAdmin ? "admin" : "start");
+    });
+  }).catch(function(e){
+    console.error(e);
+    state.view = "setup"; state.setupMsg = "Couldn’t reach the washer database. Check your connection and reload the page."; render();
+  });
+}
+
+/* ---------- clicks ---------- */
+document.addEventListener("click", function(e){
+  var t = e.target.closest("[data-go],[data-mod],[data-quiz],[data-retake],[data-recheck],[data-resend],[data-status],[data-refresh]");
+  if (!t) return;
+  e.preventDefault();
+  if (t.dataset.go){ state.flash = null; if (state.view === "nocontent" && t.dataset.go === "start") return; go(t.dataset.go); }
+  else if (t.dataset.mod != null && state.content) go("module", { mod: +t.dataset.mod });
+  else if (t.dataset.quiz && state.content) go(state.result ? "result" : "quiz");
+  else if (t.dataset.retake){ newAttempt(); go("quiz"); }
+  else if (t.dataset.recheck) loadAccount();
+  else if (t.dataset.resend && state.pendingEmail){
+    sb.auth.resend({ type: "signup", email: state.pendingEmail, options: { emailRedirectTo: HERE } }).then(function(res){
+      state.flash = res.error ? { type: "err", html: esc(res.error.message || "Couldn’t send the link. Try again later.") } : { type: "info", html: "We’ve sent the confirmation link again." };
+      var slot = document.getElementById("form-msg");
+      if (slot) slot.innerHTML = flashInner(); else render();
+    });
+  }
+  else if (t.dataset.status) setStatus(t.dataset.id, t.dataset.status);
+  else if (t.dataset.refresh) loadAdmin();
+});
+$("#tab-training").addEventListener("click", function(){ if (state.content) go("start"); else go("nocontent"); });
+$("#tab-admin").addEventListener("click", function(){ go("admin"); });
+$("#logout").addEventListener("click", function(){
+  sb.auth.signOut().finally(function(){
+    state.session = null; state.uid = null; state.washer = null; state.isAdmin = false; state.content = null;
+    state.history = []; state.result = null; state.order = null; state.admin = { washers: null, results: null, busy: null, error: "" };
+    state.flash = { type: "info", html: "You’ve logged out." };
+    go("login");
+  });
+});
+
+/* ---------- start ---------- */
+if (!window.__LOGIN_ON){ state.view = "soon"; render(); return; }
+if (!CFG.supabaseUrl || !CFG.supabaseKey){ state.view = "setup"; state.setupMsg = "The washer database hasn’t been connected yet."; render(); return; }
+if (!window.supabase || !window.supabase.createClient){ state.view = "setup"; state.setupMsg = "The login service didn’t load. Check your connection and reload the page."; render(); return; }
+
+sb = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseKey, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: "implicit" } });
+
+sb.auth.onAuthStateChange(function(event, session){
+  // Supabase asks that no other Supabase calls run inside this callback, so defer them.
+  setTimeout(function(){
+    if (event === "PASSWORD_RECOVERY"){ state.session = session; state.uid = session && session.user.id; state.email = session && session.user.email; go("recovery"); }
+    else if (event === "SIGNED_OUT" && state.session){ state.session = null; go("login"); }
+  }, 0);
+});
+
+sb.auth.getSession().then(function(res){
+  var session = res.data && res.data.session;
+  if (linkError){
+    state.flash = { type: "err", html: "That email link has expired or was already used. " + (arrivedForRecovery ? "Request a new reset link." : "Log in, or request a new link.") };
+  }
+  if (arrivedForRecovery && session){ state.session = session; state.uid = session.user.id; state.email = session.user.email; go("recovery"); return; }
+  if (session) onSession(session); else go("login");
+});
+})();
+</script>
+</body>
+</html>
