@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Parent or guardian approval · sparqle.com.au</title>
+<script src="switch.js"></script>
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,8 +64,7 @@ input.bad{border-color:#A0262A}.msg.err{background:#FDE2E2;color:#A0262A}
 <div id="bad" class="msg err" hidden>This link looks incomplete. Please use the link in your email, or contact us at <a href="mailto:enquire@sparqle.com.au">enquire@sparqle.com.au</a>.</div>
 
 <div id="main" hidden>
-<p><b id="kid1"></b> has applied to wash cars with us on the Northern Beaches and listed you as their parent or guardian. Please check their answers and let us know if you’re happy for them to go ahead. They won’t be offered any jobs without your approval.</p>
-<div class="card"><dl class="sum" id="sum"></dl></div>
+<p><b id="kid1"></b> has applied to wash cars with us on the Northern Beaches and listed you as their parent or guardian. The email we sent you includes a copy of their answers. Please let us know below if you’re happy for them to go ahead. They won’t be offered any jobs without your approval.</p>
 
 <form id="cf" novalidate>
   <label>Your full name<input name="Parent name" required autocomplete="name"><small class="hint">Typing your name here is your signature.</small></label>
@@ -84,50 +84,36 @@ input.bad{border-color:#A0262A}.msg.err{background:#FDE2E2;color:#A0262A}
 </div></main>
 <footer><div class="wrap"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms and disclaimer</a><a href="mailto:enquire@sparqle.com.au">enquire@sparqle.com.au</a><span>Sydney, Australia</span></div></footer>
 <script>
+var FORMS_URL="https://script.google.com/macros/s/AKfycbwXIJTcj3d8UFt1-0rWgvdYR5TL_virhYi4tObugV6XWJaWY-s4ANRAg2_eV231cJC7/exec";
 (function(){
-  var ADMIN="https://formsubmit.co/ajax/admin@elitedigitalconsulting.com.au";
-  var d=null;
-  try{ var raw=new URLSearchParams(location.search).get("d"); if(raw){ raw=raw.replace(/-/g,"+").replace(/_/g,"/"); while(raw.length%4) raw+="="; d=JSON.parse(decodeURIComponent(escape(atob(raw)))); } }catch(e){ d=null; }
-  if(!d||!d.n){ document.getElementById("bad").hidden=false; return; }
+  var q=new URLSearchParams(location.search), id=q.get("id"), n=(q.get("n")||"").slice(0,40);
+  if(!id||!n){ document.getElementById("bad").hidden=false; return; }
   document.getElementById("main").hidden=false;
-  ["kid1","kid2","kid3"].forEach(function(id){ document.getElementById(id).textContent=d.n; });
-  var rows=[["Name",d.n],["Age",d.a],["Email",d.ce],["Mobile",d.cm],["Suburbs",d.s],["Usually free",d.t],["Getting to jobs",d.tr],["Experience",d.e]];
-  var dl=document.getElementById("sum");
-  rows.forEach(function(r){ if(!r[1]) return; var dt=document.createElement("dt"); dt.textContent=r[0]; var dd=document.createElement("dd"); dd.textContent=r[1]; dl.appendChild(dt); dl.appendChild(dd); });
+  ["kid1","kid2","kid3"].forEach(function(x){ document.getElementById(x).textContent=n; });
   var f=document.getElementById("cf"), err=document.getElementById("err");
-  f.elements["Parent name"].value=d.pn||""; f.elements["Parent mobile"].value=d.pm||"";
-  var pm=f.elements["Parent mobile"]; pm.value=(pm.value||"").replace(/\D/g,"").slice(0,10); pm.maxLength=10; pm.setAttribute("inputmode","numeric"); pm.placeholder="e.g. 0412345678";
+  var pm=f.elements["Parent mobile"]; pm.maxLength=10; pm.setAttribute("inputmode","numeric"); pm.placeholder="e.g. 0412345678";
   var pmErr=document.createElement("small"); pmErr.className="ferr"; pmErr.hidden=true; pmErr.textContent="Please enter a 10-digit mobile number starting with 04."; pm.insertAdjacentElement("afterend",pmErr);
   function chkM(show){ var d=pm.value, bad=!/^04\d{8}$/.test(d), early=(d.length===1&&d!=="0")||(d.length>=2&&d.slice(0,2)!=="04");
     pm.setCustomValidity(bad?pmErr.textContent:""); pmErr.hidden=!(bad&&(show||early)); pm.classList.toggle("bad",!pmErr.hidden); }
   pm.addEventListener("input",function(){ var v=pm.value.replace(/\D/g,"").slice(0,10); if(v!==pm.value) pm.value=v; chkM(false); });
   pm.addEventListener("blur",function(){ chkM(true); }); chkM(false);
   var btns=f.querySelectorAll("button");
+  function reset(){ btns.forEach(function(y){y.disabled=false}); btns[0].textContent="I approve"; btns[1].textContent="I don’t approve"; }
   btns.forEach(function(b){ b.addEventListener("click",function(){
-    var dec=b.dataset.d; err.hidden=true;
-    chkM(true);
-    if(!f.checkValidity()){ f.reportValidity(); return; }
-    if(dec==="APPROVED" && !document.getElementById("agree").checked){ err.textContent="Please tick the box to confirm you approve."; err.hidden=false; return; }
-    var body={
-      _subject:(dec==="APPROVED"?"Written parent consent RECEIVED: ":"Parent consent DECLINED: ")+d.n, _template:"table", _captcha:"false",
-      "Decision":dec, "Child name":d.n, "Child age":d.a, "Child email":d.ce||"", "Child mobile":d.cm||"",
-      "Suburbs":d.s||"", "Usually free":d.t||"", "Transport":d.tr||"", "Experience":d.e||"",
-      "Parent name":f.elements["Parent name"].value, "Relationship":f.elements["Relationship"].value,
-      "Parent mobile":f.elements["Parent mobile"].value, "Parent email":d.pe||"", "email":d.pe||"",
-      "Parent comments":f.elements["Parent comments"].value,
-      "Consent statement":dec==="APPROVED"?"I'm the parent or legal guardian of "+d.n+". I've reviewed their answers and I'm happy for them to sign up and wash cars with sparqle.com.au, as described in the Terms and Privacy Policy. (Box ticked.)":"Parent chose not to approve.",
-      "Signed (typed name)":dec==="APPROVED"?f.elements["Parent name"].value:"",
-      "Submitted at":new Date().toLocaleString("en-AU",{timeZone:"Australia/Sydney"})+" (Sydney time)"
-    };
-    btns.forEach(function(x){x.disabled=true}); b.textContent="Sending\u2026";
-    fetch(ADMIN,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(body)})
+    var dec=b.dataset.d, agree=document.getElementById("agree").checked; err.hidden=true;
+    if(dec==="APPROVED"){ chkM(true); if(!f.checkValidity()){ f.reportValidity(); return; }
+      if(!agree){ err.textContent="Please tick the box to confirm you approve."; err.hidden=false; return; } }
+    var body={type:"consent",id:id,decision:dec,parentName:f.elements["Parent name"].value.trim(),relationship:f.elements["Relationship"].value,
+      parentMobile:pm.value,comments:f.elements["Parent comments"].value.trim(),agree:agree};
+    btns.forEach(function(x){x.disabled=true}); b.textContent="Sending…";
+    fetch(FORMS_URL,{method:"POST",body:JSON.stringify(body)})
       .then(function(r){return r.json()})
-      .then(function(r){ if(String(r.success)!=="true") throw new Error(r.message||"Not sent");
+      .then(function(r){ if(!r||r.ok!==true){ reset(); err.textContent=(r&&r.error)||"Sorry, that didn’t go through. Please try again."; err.hidden=false; return; }
         document.getElementById("main").hidden=true; var m=document.getElementById("done"); m.hidden=false;
-        m.textContent= dec==="APPROVED" ? "Thank you. Your approval is recorded, and we’ll be in touch with "+d.n+" soon. We may call you to confirm before their first job." : "Thanks for letting us know. We won’t offer "+d.n+" any jobs, and we’ll delete their application.";
+        m.textContent= dec==="APPROVED" ? "Thank you. Your written approval is recorded, and we’ll be in touch with "+n+" soon. We may call you to confirm before their first job." : "Thanks for letting us know. We won’t offer "+n+" any jobs, and we’ve deleted their application.";
         window.scrollTo({top:0,behavior:"smooth"});
       })
-      .catch(function(x){ console.warn(x); btns.forEach(function(y){y.disabled=false}); btns[0].textContent="I approve"; btns[1].textContent="I don\u2019t approve"; err.textContent="Sorry, that didn\u2019t go through. Please check your connection and try again."; err.hidden=false; });
+      .catch(function(x){ console.warn(x); reset(); err.textContent="Sorry, that didn’t go through. Please check your connection and try again."; err.hidden=false; });
   }); });
 })();
 </script>

@@ -211,6 +211,13 @@ section.sent .wl-done{display:flex}section.sent .wl{display:none}
 #signup .wl .fine{color:#3A4557}#signup .wl .fine a{color:#0B5E4D}
 #waitlist .wl .fine,#waitlist .wl .fine a{color:#FFFFFF}
 footer a{color:inherit}
+#book .form-card{background:var(--paper)}
+.wl .total{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;background:var(--sky);color:var(--ink);border-radius:14px;padding:14px 16px}
+.wl .total span{font-weight:700;font-size:15px}
+.wl .total b{font-size:28px;font-weight:900;font-stretch:112%}
+.wl .total small{flex-basis:100%;font-size:14px;color:var(--ink-2)}
+#book .wl .fine{color:var(--ink-2)}
+#book .wl label.tick a{color:var(--blue-ink)}
 .form-fallback{margin:14px 0 0;font-size:15px;color:var(--ink-2)}
 footer{padding:36px 0 48px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
@@ -314,11 +321,11 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
         </form>
         <aside class="quote" aria-live="polite">
           <div class="tier" id="q-title">Standard exterior wash</div>
-          <div class="amount" id="q-amount">$95</div>
-          <div class="per" id="q-per">One-off wash, small car</div>
+          <div class="amount" id="q-amount">$99.90</div>
+          <div class="per" id="q-per">One-off wash, small car: $95 wash + $4.90 booking fee</div>
           <ul id="q-list"></ul>
-          <a class="btn btn-primary" href="#book" style="width:100%">Book this wash</a>
-          <p class="note">Plus a $4.90 booking fee. Busy times and longer trips can cost a little more; you’ll always see the final price before you pay.</p>
+          <a class="btn btn-primary" href="#book" id="book-this" style="width:100%">Book this wash</a>
+          <p class="note">Total includes the $4.90 booking fee. You’re only charged once your wash is done. Busy times and longer trips can cost a little more; we’ll always confirm the final total before your wash.</p>
         </aside>
       </div>
     </div>
@@ -403,10 +410,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
       <p class="sub">Takes about two minutes. We’ll be in touch within a few days.</p>
       <div class="form-card">
         <div class="wl-done" role="status" aria-live="polite"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0E7C66" stroke-width="2.6" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg><div><b>You’re signed up!</b><span>Thanks for applying. We’ll be in touch within a few days to confirm your details.</span></div></div>
-        <form class="wl" action="https://formsubmit.co/admin@elitedigitalconsulting.com.au" method="POST" novalidate>
-          <input type="hidden" name="_subject" value="New washer sign-up">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
+        <form class="wl" data-type="washer" novalidate>
           <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
           <label>Full name<input name="Name" required autocomplete="name"></label>
           <label>Email<input type="email" name="email" required autocomplete="email"></label>
@@ -443,11 +447,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
       <p class="sub">We’re lining up washers now. Join the waitlist and we’ll let you know as soon as we’re washing on your street. No payment, no commitment.</p>
       <div class="form-card">
         <div class="wl-done" role="status" aria-live="polite"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0E7C66" stroke-width="2.6" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg><div><b>You’re on the list!</b><span>Thanks for joining. We’ll be in touch as soon as we’re washing near you.</span></div></div>
-        <form class="wl" action="https://formsubmit.co/admin@elitedigitalconsulting.com.au" method="POST">
-          <input type="hidden" name="_subject" value="New customer waitlist sign-up">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://elitedigitalconsulting.github.io/carwash/?joined=1#waitlist">
+        <form class="wl" data-type="waitlist" novalidate>
           <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
           <label>Name<input name="Name" required autocomplete="name"></label>
           <label>Email<input type="email" name="email" required autocomplete="email"></label>
@@ -511,12 +511,34 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
 
   <section id="book" class="book" data-show="booking">
     <div class="wrap">
-      <h2>Book your first wash</h2>
-      <p class="sub">Send a booking request in about a minute. We’ll confirm your price and time within 24 hours, and nothing is charged until you approve it.</p>
+      <h2>Book your wash</h2>
+      <p class="sub">Send a booking request in about a minute. We’ll confirm your washer and arrival time within 24 hours, and you’re only charged once your wash is done.</p>
       <div class="form-card">
-        <iframe data-tally-src="https://tally.so/embed/GexMOk?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="620" frameborder="0" marginheight="0" marginwidth="0" title="Book a car wash"></iframe>
+        <div class="wl-done" role="status" aria-live="polite"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0E7C66" stroke-width="2.6" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg><div><b>Booking request sent!</b><span>We’ve emailed you a copy and will confirm your washer and time within 24 hours.</span></div></div>
+        <form class="wl" data-type="booking" novalidate>
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <label>Full name<input name="Name" required autocomplete="name"></label>
+          <label>Email<input type="email" name="email" required autocomplete="email"></label>
+          <label>Mobile number<input type="tel" name="Mobile" required autocomplete="tel"></label>
+          <label>Suburb<select name="Suburb" required><option value="">Choose…</option><option>Forestville</option><option>Frenchs Forest</option><option>Killarney Heights</option><option>Belrose</option></select></label>
+          <label class="full">Street address<input name="Address" required autocomplete="street-address" placeholder="e.g. 12 Ferguson Street"></label>
+          <label>Car make and model<input name="Car" required placeholder="e.g. Toyota RAV4"></label>
+          <label>Car size<select name="Car size" required><option value="">Choose…</option><option>Small</option><option>Sedan</option><option>SUV or ute</option><option>Van</option></select></label>
+          <label>Washer level<select name="Tier" required><option>Standard</option><option>Premium</option><option>Pro</option></select></label>
+          <label>Service<select name="Service" required><option>Exterior</option><option>Exterior and interior</option><option>Full detail</option></select></label>
+          <label>How often<select name="How often" required><option>One-off</option><option>Monthly</option><option>Fortnightly</option><option>Weekly</option></select></label>
+          <label>Preferred date<input type="date" name="Date" required></label>
+          <label class="full">Arrival window<select name="Window" required><option value="">Choose…</option><option>Morning (8am–12pm)</option><option>Afternoon (12pm–4pm)</option><option>Late afternoon (4pm–6pm)</option></select></label>
+          <label class="full">Anything your washer should know? (optional)<textarea name="Notes" rows="3" placeholder="e.g. a scratch on the bonnet, dog in the yard, keys in the letterbox"></textarea></label>
+          <div class="total full" aria-live="polite"><span>Estimated total</span><b id="bk-total">$99.90</b><small id="bk-break">$95.00 wash + $4.90 booking fee</small></div>
+          <p class="fine full">Some of our washers are 15 to 17 and work with their parent or guardian’s written approval. We’ll tell you if yours is. Washers never come inside your home.</p>
+          <label class="tick full"><input type="checkbox" name="Photos" value="Yes"><span>OK to use before and after photos of my car (never with number plates or house numbers)</span></label>
+          <label class="tick full"><input type="checkbox" name="Terms" value="Yes" required><span>I agree to the <a href="customer-terms.html" target="_blank" rel="noopener">Customer terms</a></span></label>
+          <p class="fine full">We’ll only use your details to arrange your wash. See our <a href="privacy.html">Privacy Policy</a>.</p>
+          <p class="wl-err full" role="alert" hidden>Sorry, that didn’t go through. Please check your connection and try again.</p>
+          <button class="btn btn-primary full" type="submit">Send booking request</button>
+        </form>
       </div>
-      <p class="form-fallback">Form not showing? <a href="https://tally.so/r/GexMOk" target="_blank" rel="noopener">Open the booking form in a new tab</a>.</p>
     </div>
   </section>
 </main>
@@ -533,6 +555,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
   var P={standard:[[95,115,125,145],[150,175,195,230],null],
          premium:[[125,145,170,190],[185,215,250,280],[350,410,460,520]],
          pro:[[150,180,205,225],[250,285,325,375],[415,480,545,620]]};
+  window.SQ_P=P;
   var names={standard:"Standard",premium:"Premium",pro:"Pro"};
   var svcN=["exterior wash","exterior and interior","full detail"];
   var sizeN=["small car","sedan","SUV or ute","van"];
@@ -554,19 +577,23 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
     var base=P[t][s][z];
     var price=Math.round(base*(1-parseFloat(fr)));
     document.getElementById("q-title").textContent=names[t]+" "+svcN[s];
-    document.getElementById("q-amount").textContent="$"+price;
-    document.getElementById("q-per").textContent=freqN[fr]+", "+sizeN[z]+(fr!=="0"?" (normally $"+base+")":"");
+    document.getElementById("q-amount").textContent="$"+(price+4.90).toFixed(2);
+    document.getElementById("q-per").textContent=freqN[fr]+", "+sizeN[z]+": $"+price+" wash + $4.90 booking fee"+(fr!=="0"?" (wash normally $"+base+")":"");
     document.getElementById("q-list").innerHTML=inc[t].map(function(i){return "<li>"+(i[1]?ok:no)+"<span>"+i[0]+"</span></li>"}).join("");
   }
   f.addEventListener("change",render);
   render();
 })();
 </script>
-<script src="https://tally.so/widgets/embed.js" async onload="Tally.loadEmbeds()"></script>
-<script>document.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc});</script>
 <script>if(window.__BOOKING_ON){document.title="Mobile car wash on the Northern Beaches, Australia";var md=document.querySelector('meta[name="description"]');if(md)md.content="A local washer cleans your car in your driveway. Exterior washes from $95, inside-and-out and full details, with repeat plans up to 20% off. Northern Beaches, Australia.";}</script>
 <script>
+/* Forms post to your own Google Apps Script (data stays in your Google account). */
+var FORMS_URL="https://script.google.com/macros/s/AKfycbwXIJTcj3d8UFt1-0rWgvdYR5TL_virhYi4tObugV6XWJaWY-s4ANRAg2_eV231cJC7/exec";
 (function(){
+  var KEY={"Name":"name","email":"email","Mobile":"mobile","Age":"age","Gender":"gender","Parent name":"parentName","Parent mobile":"parentMobile","Parent email":"parentEmail",
+    "Suburbs":"suburbs","Free times":"freeTimes","Transport":"transport","Experience":"experience","ABN":"abn","ABN number":"abnNumber","Heard via":"heardVia","Notes":"notes",
+    "Suburb":"suburb","Car size":"carSize","Service":"service","How often":"howOften","_honey":"_honey",
+    "Address":"address","Car":"car","Tier":"tier","Date":"date","Window":"window","Photos":"photos","Terms":"termsAgree"};
   document.querySelectorAll("form.wl").forEach(function(f){
     var sec=f.closest("section"), btn=f.querySelector('button[type="submit"]'), err=f.querySelector(".wl-err"), label=btn.textContent, msg=err.textContent;
     var age=f.querySelector('[name="Age"]'), par=f.querySelector(".parent");
@@ -588,29 +615,9 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
       t.addEventListener("blur",function(){ t._chk(true); });
       t._chk(false);
     });
-
-    function b64(o){ return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
-    function sendToParent(){
-      /* Separate email to the parent: FormSubmit's auto-reply goes to the field named "email".
-         Auto-replies only work with a normal (non-background) submit and FormSubmit's captcha on. */
-      var E=f.elements, kid=E["Name"].value.trim(), pn=E["Parent name"].value.trim(), pe=E["Parent email"].value.trim();
-      var g=function(n){ var x=f.querySelector('input[type=hidden][name="'+n+'"]'); return x?x.value:""; };
-      var link=new URL("consent.html",location.href); link.search=""; link.hash="";
-      link.searchParams.set("d",b64({n:kid,a:E["Age"].value,ce:E["email"].value.trim(),cm:E["Mobile"].value.trim(),s:g("Suburbs"),t:g("Free times"),tr:E["Transport"].value,e:E["Experience"].value,pn:pn,pm:E["Parent mobile"].value.trim(),pe:pe}));
-      var add=function(n,v){ var i=f.querySelector('input[type=hidden][data-x="'+n+'"]'); if(!i){ i=document.createElement("input"); i.type="hidden"; i.setAttribute("data-x",n); f.appendChild(i);} i.name=n; i.value=v; };
-      E["email"].name="Washer email";              /* keep the washer's own email in your copy */
-      add("email",pe);                              /* the parent's separate email goes here */
-      add("_autoresponse","Hi "+pn+",\n\n"+kid+" has applied to wash cars with us on the Northern Beaches and listed you as their parent or guardian. Their answers are included below.\n\nWe need your written approval before "+kid+" can do any work. Please review their answers, then approve or decline here (about 30 seconds):\n"+link.href+"\n\nIf you weren't expecting this, you can decline using the same link or email enquire@sparqle.com.au.\n\nThanks,\nThe team at sparqle.com.au");
-      add("_next",location.href.split("?")[0].split("#")[0]+"?applied=teen#signup");
-      E["_subject"].value="New washer sign-up (under 18): parent approval requested";
-      var cap=f.querySelector('input[name="_captcha"]'); if(cap) cap.remove();
-      btn.disabled=true; btn.textContent="Sending\u2026";
-      HTMLFormElement.prototype.submit.call(f);
-    }
     function fail(t,el){ err.textContent=t||msg; err.hidden=false; btn.disabled=false; btn.textContent=label; (el||err).scrollIntoView({behavior:"smooth",block:"center"}); }
     f.addEventListener("submit",function(e){
       e.preventDefault();
-      if(f.elements._honey && f.elements._honey.value) return;
       err.hidden=true;
       f.querySelectorAll('input[type="tel"]').forEach(function(t){ if(t._chk) t._chk(true); });
       if(!f.checkValidity()){ f.reportValidity(); return; }
@@ -622,20 +629,50 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
         if(g.dataset.required && !v.length && !bad) bad=g;
       });
       if(bad){ fail("Please choose at least one option for \u201c"+bad.querySelector("legend").textContent+"\u201d.",bad); return; }
-      if(par && !par.hidden){ sendToParent(); return; }
+      var data={type:f.dataset.type};
+      new FormData(f).forEach(function(v,k){ if(KEY[k]) data[KEY[k]]=String(v).trim(); });
+      if(data._honey) return;
       btn.disabled=true; btn.textContent="Sending\u2026";
-      fetch(f.action.replace("formsubmit.co/","formsubmit.co/ajax/"),{method:"POST",headers:{"Accept":"application/json"},body:new FormData(f)})
+      fetch(FORMS_URL,{method:"POST",body:JSON.stringify(data)})   /* plain-text body: no CORS preflight */
         .then(function(r){return r.json()})
         .then(function(d){
-          if(String(d.success)!=="true") throw new Error(d.message||"Not sent");
+          if(!d || d.ok!==true) return fail(d && d.error);
+          if(d.teen){ var t=sec.querySelector(".wl-done span"); if(t) t.textContent="Thanks for applying. We\u2019ve emailed your parent or guardian a copy of your answers to approve. Once they do, we\u2019ll be in touch."; }
           sec.classList.add("sent"); f.reset(); syncParent(); syncAbn(); btn.disabled=false; btn.textContent=label;
           sec.scrollIntoView({behavior:"smooth",block:"start"});
         })
         .catch(function(x){ console.warn("Form:",x); fail(); });
     });
   });
-  if(/[?&]joined=1/.test(location.search)){ var w=document.getElementById("waitlist"); if(w) w.classList.add("sent"); }
-  if(/[?&]applied=teen/.test(location.search)){ var s=document.getElementById("signup"); if(s){ s.classList.add("sent"); var t=s.querySelector(".wl-done span"); if(t) t.textContent="Thanks for applying. We\u2019ve emailed your parent or guardian a copy of your answers to approve. Once they do, we\u2019ll be in touch."; } }
+})();
+</script>
+<script>
+/* Booking form: live total, full-detail rule, earliest date, prefill from the price calculator */
+(function(){
+  var f=document.querySelector('form[data-type="booking"]'); if(!f) return;
+  var P=window.SQ_P||{}, FEE=4.90, E=f.elements;
+  var TIER={"Standard":"standard","Premium":"premium","Pro":"pro"}, SVC=["Exterior","Exterior and interior","Full detail"], SIZE=["Small","Sedan","SUV or ute","Van"], OFF={"One-off":0,"Monthly":0.10,"Fortnightly":0.15,"Weekly":0.20};
+  var t=new Date(); t.setDate(t.getDate()+1); E["Date"].min=t.toISOString().slice(0,10);
+  function money(n){ return "$"+n.toFixed(2); }
+  function update(){
+    var std=E["Tier"].value==="Standard", full=E["Service"].querySelector("option:nth-child(3)");
+    full.disabled=std; if(std && E["Service"].value==="Full detail") E["Service"].value="Exterior and interior";
+    var z=Math.max(0,SIZE.indexOf(E["Car size"].value)), row=P[TIER[E["Tier"].value]], s=SVC.indexOf(E["Service"].value);
+    if(!row||!row[s]) return;
+    var wash=Math.round(row[s][z]*(1-OFF[E["How often"].value]));
+    document.getElementById("bk-total").textContent=money(wash+FEE);
+    document.getElementById("bk-break").textContent=money(wash)+" wash + $4.90 booking fee"+(E["Car size"].value?"":" (small car; choose your car size)")+(OFF[E["How often"].value]?" · plan price, every wash":"");
+  }
+  f.addEventListener("change",update); update();
+  var go=document.getElementById("book-this");
+  if(go) go.addEventListener("click",function(){
+    var c=document.getElementById("calc"), v=function(n){return c.querySelector('input[name="'+n+'"]:checked').value};
+    E["Tier"].value={standard:"Standard",premium:"Premium",pro:"Pro"}[v("tier")];
+    E["Service"].value=SVC[+v("svc")]; E["Car size"].value=SIZE[+v("size")];
+    E["How often"].value={"0":"One-off","0.10":"Monthly","0.15":"Fortnightly","0.20":"Weekly"}[v("freq")];
+    update();
+  });
+  f.addEventListener("reset",function(){ setTimeout(update,0); });
 })();
 </script>
 </body>
