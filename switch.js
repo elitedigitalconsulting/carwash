@@ -13,3 +13,18 @@ var BOOKING_ENABLED = false;
   document.head.appendChild(st);
   window.__BOOKING_ON=on;
 })();
+
+/* ===== BRAND IN THE BROWSER TAB (runs on every page) =====
+   Adds the sparqle icon and shows "Sparqle" as the tab title: "Sparqle" on the home page,
+   "Privacy Policy · Sparqle" on the others. Keeps working if a page changes its title later. */
+(function(){
+  var l=document.createElement("link"); l.rel="icon"; l.type="image/svg+xml"; l.href="favicon.svg"; document.head.appendChild(l);
+  function brand(){
+    var t=document.title;
+    if(/^(Earn cash washing cars|Mobile car wash)/.test(t)) document.title="Sparqle";
+    else if(/ \u00b7 sparqle\.com\.au$/.test(t)) document.title=t.replace(/ \u00b7 sparqle\.com\.au$/," \u00b7 Sparqle");
+  }
+  brand();
+  var te=document.querySelector("title");
+  if(te && window.MutationObserver) new MutationObserver(brand).observe(te,{childList:true,characterData:true,subtree:true});
+})();
